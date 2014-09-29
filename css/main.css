@@ -1,0 +1,32 @@
+#url{
+	height : 300px;
+	overflow:scroll;
+}
+#url li{
+	cursor : pointer;
+}
+#m2 textarea{
+	width : 100%;
+	height: 300px;
+}
+#m1--spy{
+	position:absolute;
+	right:0;
+	top : 0;
+	z-index : 2;
+}
+#m1--spy textarea{
+	display :none;
+	width : 100%;
+	height:100%;
+}
+#m1--spy:hover {
+	width: 70%;
+	height:300px;
+}
+#m1--spy:hover textarea{
+	display:block;
+}
+#m2--showMain {
+	float : right;
+}

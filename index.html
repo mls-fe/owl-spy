@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>OWL SPY</title>
+		<link href="./css/main.css" rel="stylesheet">
+    </head>
+<body>
+	<div id=m2 style="display:none;">
+		<p>
+			<span id='m2--showMain'> <- 返回</span>
+			刷新后生效: <input  id="m2--url"/> 
+			<input type=button id='m2--run' value="run" />
+		</p>
+		<textarea id="m2--input"></textarea>
+		<textarea id="m2--output"></textarea>
+
+	</div>
+	<div id="m1">
+		<div id="m1--spy">
+			<p>eye on</p>
+			<textarea id="m1--spylist"></textarea>	
+		</div>
+		<div id="m1--operat">
+			<p> ip:<span id="localip" ></span>  ,port :<input id=port  value="4000"/>  ;url filter :<input id=url_filter /> </p>
+			<input type=button id="start" value=start />
+			<input type=button id="stop" value=stop />
+			<input type=button id="clean" value=clean />
+			<input type=button id="reset" value=reset />
+			<span id="status"></span>
+		</div>
+		<br style="clear:both;" />
+		<div>
+			<ul id="url">
+			</ul>
+		</div>
+		<div id="log"></div>
+		<div id="detail" style="display:none;">
+			<span class="b" act="headers">Headers</span>	
+			<span class="b" act="params">Params</span>	
+			<span class="b" act="response">Response</span>	
+			<span class="b" act="beauty">Beauty</span>	
+			<span class="b" act="edit">Edit</span>	
+			<span class="b spybtn" act="spy">Spy</span>	
+			<div id="dtlPnl"></div>
+		</div>
+		<div id="edit">
+			<form id="editRule" style="display:none;">
+				<p>
+					<label> <input type=radio name="edit" value="replace" /> 替换 </label>
+					<label> <input type=radio name="edit" value="append" checked /> 追加 </label>
+				</p>
+				<textarea id="editCon" name="editCon"></textarea>
+				<p>
+					<input type=submit value=submit />
+				</p>
+			</form>
+		</div>
+	<div>
+</body>
+<script src=js/jquery-2.1.1.js></script>
+<script src=js/main.js></script>
+<script src=js/contextmenu.js></script>
+</html>
