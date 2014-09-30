@@ -163,7 +163,7 @@ function start(){
 	parseArgs()
 
 	var p = http.createServer(function(req , res){
-		console.log(req.url)
+		///console.log(req.url)
 		req.id = getUid()
 		if (req.headers.owl) {
 			function unSub(){
