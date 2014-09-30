@@ -1,4 +1,4 @@
-~function(){
+~function(global){
 	try {
 		var xhr = new window.XMLHttpRequest()
 	}catch(err){
@@ -14,6 +14,11 @@
 				}
 			}
 		}
+	window.onerror = function(errorMsg, url, lineNumber){
+		var error = ('error capture \nerrorMsg:' + errorMsg +'\nurl:' + url + '\nlineNumber:' + lineNumber)	
+		send('echoBk' , error)
+		alert(error)
+	}
 	xhr.onreadystatechange = function(){
 		if(!(xhr.readyState == 4 && xhr.status == 200) ) return 
 		var msg = xhr.responseText
@@ -57,6 +62,17 @@
 	}
 
 	send('init' ,true)
-	global.send2Console = send
+	var _oldlog = console.log
+	global.console2Send = function(recover){
+		if (recover){
+			console.log  = _oldlog
+		}else{
+			console.log = function(){
+				 var a = Array.prototype.slice.call(arguments,0)
+				 send('echoBk' ,'console log \n' + a.join('\n'))
+			}
+		}
+		alert(recover ? 'console.log is recover' : 'Take over console.log')
+	}
 
-}()
+}(window)

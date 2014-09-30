@@ -288,6 +288,9 @@ function main(){
 		$('#m1').show()
 		$('#m2').hide()
 	})
+	$('#m2--clean').click(function(){
+		$('#m2--output').val('')
+	})
 	$('#m2--run').click(runRun)
 	$('#m2--input').change(runRun)
 	function runRun(){
