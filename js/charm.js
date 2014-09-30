@@ -20,19 +20,19 @@
 		alert(error)
 	}
 	xhr.onreadystatechange = function(){
-		if(!(xhr.readyState == 4 && xhr.status == 200) ) return 
-		var msg = xhr.responseText
-		if (!msg) return
-		try{
-			JSON.parse(msg).forEach(function(msg){
-				var type = msg.type	
-					,val = msg.val
-				var echoBk = helper[type] && helper[type](val)
-				if (echoBk) return send('echoBk' , echoBk)
-			})
-		}catch(err){
-			alert(err)
-			alert(xhr.responseText)
+		//alert(xhr.readyState +'|' + xhr.status)
+		if(xhr.readyState != 4) return
+		if (xhr.status == 200 && xhr.responseText){ 
+			try{
+				JSON.parse(xhr.responseText).forEach(function(msg){
+					var type = msg.type	
+						,val = msg.val
+					var echoBk = helper[type] && helper[type](val)
+					if (echoBk) send('echoBk' , echoBk)
+				})
+			}catch(err){
+				alert('response error :' + xhr.responseText)
+			}
 		}
 		send('init' ,true)
 	}
