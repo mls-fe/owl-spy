@@ -8,24 +8,24 @@
 <body>
 	<div id=m2 style="display:none;">
 		<p>
-			<span id='m2--showMain'> <- 返回</span>
-			刷新后生效: <input  id="m2--url"/> 
-			<input type=button id='m2--run' value="run" />
-			<input type=button id='m2--clean' value="clean" />
-			<label><input type=checkbox id='m2--console2Send' value=1 /> console2Send </label>
+			<span id='m2__showMain'> <- 返回</span>
+			刷新后生效: <input  id="m2__url"/> 
+			<input type=button id='m2__run' value="run" />
+			<input type=button id='m2__clean' value="clean" />
+			<label><input type=checkbox id='m2__console2Send' value=1 /> console2Send </label>
 		</p>
-		<div id="m2--pnl">
-			<textarea id="m2--output" placeholder="output result"></textarea>
-			<textarea id="m2--input" placeholder="input command                           console2Send() //take over console.log"></textarea>
+		<div id="m2__pnl">
+			<textarea id="m2__output" placeholder="output result"></textarea>
+			<textarea id="m2__input" placeholder="input command                           console2Send() //take over console.log"></textarea>
 		</div>
 
 	</div>
 	<div id="m1">
-		<div id="m1--spy">
+		<div id="m1__spy">
 			<p>eye on</p>
-			<textarea id="m1--spylist"></textarea>	
+			<textarea id="m1__spylist"></textarea>	
 		</div>
-		<div id="m1--operat">
+		<div id="m1__operat">
 			<p> ip:<span id="localip" ></span>  ,port :<input id=port  value="4000"/>  ;url filter :<input id=url_filter /> </p>
 			<input type=button id="start" value=start />
 			<input type=button id="stop" value=stop />

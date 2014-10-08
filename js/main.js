@@ -45,7 +45,7 @@ workerCmd.reqComplete = workerCmd.reqStart =  function(val){
 }
 var sepLine = new Array(30).join('-')
 workerCmd.echoBk = function(val){
-	$('#m2--output')[0].value += val + '\n<' + sepLine + '>\n' 
+	$('#m2__output')[0].value += val + '\n<' + sepLine + '>\n' 
 }
 
 function log(){
@@ -202,7 +202,7 @@ function showDetail(act){
 			//if (_set.spyon.indexOf(url) == -1) return
 			//upSpyList(url ,'on')
 
-			$('#m2--url').val(url)
+			$('#m2__url').val(url)
 			$('#m1').hide()
 			$('#m2').show()
 			break
@@ -235,7 +235,7 @@ function upSpyList(url , opt){
 			}
 		}
 	}
-	$('#m1--spylist').val(_set.spyon.join('\n'))
+	$('#m1__spylist').val(_set.spyon.join('\n'))
 	upSetting()
 }
 
@@ -270,7 +270,7 @@ function main(){
 		$('#detail').show()
 		$('#detail .b').eq(0).trigger('click')
 	})
-	$('#m1--spylist').change(function(){
+	$('#m1__spylist').change(function(){
 		var list = this.value.trim().split('\n')
 		_set.spyon = []
 		list.forEach(function(i){
@@ -284,21 +284,21 @@ function main(){
 		upSpyList(url)
 	})
 
-	$('#m2--showMain').click(function(){
+	$('#m2__showMain').click(function(){
 		$('#m1').show()
 		$('#m2').hide()
 	})
-	$('#m2--clean').click(function(){
-		$('#m2--output').val('')
+	$('#m2__clean').click(function(){
+		$('#m2__output').val('')
 	})
-	$('#m2--console2Send').change(function(){
+	$('#m2__console2Send').change(function(){
 		runRun(null , 'console2Send(' + !this.checked + ')' )	
 	})
-	$('#m2--run').click(runRun)
-	$('#m2--input').change(runRun)
+	$('#m2__run').click(runRun)
+	$('#m2__input').change(runRun)
 	function runRun(evt , cmd){
-		var url = $('#m2--url').val()
-		nmqs.pub('s_' + url , cmd || $('#m2--input').val())
+		var url = $('#m2__url').val()
+		nmqs.pub('s_' + url , cmd || $('#m2__input').val())
 		//nmqs.pub('s_http://m.meilishuo.com/sq' ,'alert(2) ;\n return document.body.innerHTML')
 	}
 
