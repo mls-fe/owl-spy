@@ -240,7 +240,7 @@ function upSpyList(url , opt){
 }
 
 function main(){
-	var serverIp = getIP()['en0']
+	var serverIp = getIP()[0]
 	var qPort = config.port + 1
 	config.qPort = qPort
 	nmqs = nmq.startServer({'port' : qPort} )
@@ -326,13 +326,12 @@ function main(){
 function getIP(){
 	var os = require('os')
 	var ifaces = os.networkInterfaces()
-	var ret = {}
+	var ret = []
 	for (var dev in ifaces) {
 	  var alias=0
 	  ifaces[dev].forEach(function(details){
-		if (details.family=='IPv4') {
-		  ret[dev+(alias?':'+alias:'')] = details.address
-		  ++alias
+		if (details.family=='IPv4' && !details.internal) {
+			ret.push(details.address)
 		}
 	  })
 	}
