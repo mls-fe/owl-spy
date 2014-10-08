@@ -291,11 +291,14 @@ function main(){
 	$('#m2--clean').click(function(){
 		$('#m2--output').val('')
 	})
+	$('#m2--console2Send').change(function(){
+		runRun(null , 'console2Send(' + !this.checked + ')' )	
+	})
 	$('#m2--run').click(runRun)
 	$('#m2--input').change(runRun)
-	function runRun(){
+	function runRun(evt , cmd){
 		var url = $('#m2--url').val()
-		nmqs.pub('s_' + url , $('#m2--input').val())
+		nmqs.pub('s_' + url , cmd || $('#m2--input').val())
 		//nmqs.pub('s_http://m.meilishuo.com/sq' ,'alert(2) ;\n return document.body.innerHTML')
 	}
 

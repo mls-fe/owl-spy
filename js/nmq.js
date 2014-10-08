@@ -111,13 +111,16 @@ exports.startClient = function(config){
 		,_connected 
 
 	function reConnect(){
+		client = null
 		_connected = false
 		setImmediate(connect)
 	}
 	function connect(){
+		if (client) return
 		client = net.connect(config , function() {
 			_connected = true
 			console.log('client connected')
+		})
 
 		client.on('data', function(data) {
 			data = unWrapMsg(data)
@@ -132,9 +135,9 @@ exports.startClient = function(config){
 			console.log('client disconnected')
 			reConnect()
 		})
-		})
+
 		client.on('error', function(err) {  
-			//console.log('client disconnected' ,err)
+			console.log('client error' ,err)
 			reConnect()
 		})
 	}
@@ -173,6 +176,10 @@ exports.startClient = function(config){
 		,pull : pull 
 		,clean : function(drawer ){
 			writeToServer(wrapMsg('clean' , drawer ))
+		}
+		,exit : function(){
+			client.destroy()	
+			client = null
 		}
 	}
 }
