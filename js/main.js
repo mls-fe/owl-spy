@@ -68,13 +68,6 @@ function clean(releaseAll){
 	$('#editRule').hide()
 }
 
-function showStatus(txt){
-	$('#status').html(txt)
-	window.setTimeout(function(){
-		$('#status').html('')
-	},3000)
-}
-
 function eachWorker(callback) {
 	for (var id in cluster.workers) {
 		callback(cluster.workers[id]);
@@ -95,9 +88,9 @@ function receiveFromWorker(msg){
 	workerCmd[cmd] && workerCmd[cmd](val)
 }
 
-function startProxy() {
+function startProxy(cb) {
 	config.port = $('#port').val()
-	showStatus('start')
+	// showStatus('start')
 	console.log(cluster.workers)
 	cluster.setupMaster({
 		exec : "js/proxy.js",
@@ -121,13 +114,15 @@ function startProxy() {
         })
 		*/
 	}
+	if(cb) cb()
 }
 
-function stopProxy(){
-	showStatus('stop')
+function stopProxy(cb){
+	// showStatus('stop')
 	eachWorker(function(worker) {
 		worker.disconnect()
 	})
+	if(cb) cb()
 }
 
 function upConfig(worker){
@@ -253,8 +248,8 @@ function main(){
 
 	$('#port').val(config.port)
 	$('#localip').html(serverIp)
-	$('#start').click(startProxy)
-	$('#stop').click(stopProxy)
+	// $('#start').click(startProxy)
+	// $('#stop').click(stopProxy)
 	$('#clean').click(clean.bind(null,false))
 	$('#reset').click(clean.bind(null, true))
 	$('#url').on('click' ,'li' ,function(){

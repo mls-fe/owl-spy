@@ -1,0 +1,95 @@
+/**
+* css reset
+**/
+html, body, div, h1, h2, h3, h4, h5, h6, ul, ol, dl, li, dt, dd, p, blockquote, pre, form, fieldset, table, th, td, map{margin: 0; padding: 0;overflow: hidden;}
+* html,* html body{background-image: url(about:blank);background-attachment: fixed;}
+ul, ol, dl, li{ list-style: none;}
+pre {white-space: pre-wrap;word-wrap: break-word;}
+h3{_zoom: 1;}
+input,textarea{resize: none; outline: none; font-family:Arial;word-wrap: break-word;}
+fieldset, img{border: 0;}
+legend { display:none; }
+em{font-style: normal;}
+html{_overflow-x: hidden;}
+body{font-size: 12px; font-family: Arial;color:#3e454d;}
+.clear_f{
+	clear: both; overflow:hidden; height:0px; 
+}
+.border-r(@radius: 2px) { -webkit-border-radius: @radius; border-radius: @radius; }
+.Transform(@r){
+	transform:@r;
+	-webkit-transform:@r;
+}
+.Transition(@f:transform,@t:0.5s){
+	transition:@f @t;
+	-webkit-transition:@f @t; 
+}
+.Animate(@name,@duration:2s,@timingfunction:linear,@delay:0s,@count:1,@direction:normal){
+	animation:@name @duration @timingfunction @delay @count @direction;
+	-webkit-animation:@name @duration @timingfunction @delay @count @direction;
+}
+
+#url{
+	height : 300px;
+	overflow: auto;
+	word-break:break-all;
+	li{
+		cursor : pointer;
+	}
+}
+#m2 textarea{
+	width : 49%;
+	height: 100%; 
+	border: none;
+}
+#m2--pnl{
+	margin:1px auto;
+	height: 500px;
+	overflow:hidden;
+	border:1px solid #000;
+}
+#m2--output {
+}
+#m2--pnl #m2--input {
+	border-left :1px solid #ccc; 
+}
+#m1--spy{
+	position:absolute;
+	text-align: center;
+	right:0;
+	top : 50px;
+	z-index : 2;
+	width:36px;
+	background: #3e454d;
+	color: #fff;
+	padding: 5px 10px;
+	overflow: hidden;
+	textarea{display :none;width : 100%;height:200px;margin: auto;}
+	p{padding: 5px;}
+	.Transition(all,@t:0.3s);
+	&:hover {width: 40%;
+		textarea{display: block;}
+	}
+}
+
+#m2--showMain {
+	float : right;
+}
+
+.proxy_info_wrapper{line-height: 36px;padding-left: 20px;background: #3e454d;color: #fff;font-size: 14px;
+	span,input[type=text],input[type=number]{margin-right: 10px;margin-left: 6px;}
+	#clear_btn{background:#ff7d7e;color: #fff; border: none; .border-r(2px);cursor: pointer;
+		&:active{background: #fd6566;}
+	}
+	#localip{}
+	#port{width:48px;text-align: center;}
+	#url_filter{width: 300px;}
+}
+.proxy_btn_wrapper{padding: 10px 20px;
+	input[type=button]{width:60px;margin-right: 10px;background: #5e6771;border: none;padding: 5px;color: #fff; .border-r(2px);cursor: pointer;
+		&:active{background: #3e454d;}
+		&#start{background:#00aeef;&:active{background: #2483cb;}}
+		&#stop{background:#ff7d7e;&:active{background: #fd6566;}}
+		&.disabled{background: #ccc!important;cursor: default;}
+	}
+}
