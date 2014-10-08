@@ -16,7 +16,7 @@
 		</p>
 		<div id="m2__pnl">
 			<textarea id="m2__output" placeholder="output result"></textarea>
-			<textarea id="m2__input" placeholder="input command                           console2Send() //take over console.log"></textarea>
+			<textarea style="height:100%;width:50%;" id="m2__input" placeholder="input command                           console2Send() //take over console.log"></textarea>
 		</div>
 
 	</div>
@@ -65,4 +65,14 @@
 <script src=js/jquery-2.1.1.js></script>
 <script src=js/main.js></script>
 <script src=js/contextmenu.js></script>
+<script language="javascript" type="text/javascript" src="edit_area/edit_area_full.js"></script>
+<script language="javascript" type="text/javascript">
+editAreaLoader.init({
+		id : "m2__input"		// textarea id
+		,font_size : 10
+		,toolbar : "search,  fullscreen, |, undo,redo"
+		,syntax: "js"			// syntax to be uses for highgliting
+		,start_highlight: true		// to display with highlight mode on start-up
+});
+</script>
 </html>

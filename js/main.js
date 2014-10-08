@@ -2,7 +2,7 @@ var config = require('./config.json')
 	,workerCmd = {}
 	,result = {}
 	,detailId
-	,_set = {replace:{},append:{},spyon :[]}
+	,_set 
 
 
 var http = require('http')
@@ -62,7 +62,7 @@ function clean(releaseAll){
 	detailId = null
 	conUrl && conUrl.empty()
 	if (releaseAll){
-		_set = {replace:{},append:{},spyon:[]}
+		_set = {replace:{},append:{},spyon: require('./spyon.json')}
 	}
 	$('#detail').hide()
 	$('#editRule').hide()
@@ -277,7 +277,7 @@ function main(){
 			_set.spyon.push(i.trim() )
 		})
 		upSetting()
-	})
+	}).val(_set.spyon.join('\n'))
 	conUrl.on('click' , '.eys' , function(){
 		var id = $(this).parent().attr('id')
 		var url = result[id].uri
@@ -298,7 +298,7 @@ function main(){
 	$('#m2__input').change(runRun)
 	function runRun(evt , cmd){
 		var url = $('#m2__url').val()
-		nmqs.pub('s_' + url , cmd || $('#m2__input').val())
+		nmqs.pub('s_' + url , cmd  || editAreaLoader.getValue('m2__input') || $('#m2__input').val())
 		//nmqs.pub('s_http://m.meilishuo.com/sq' ,'alert(2) ;\n return document.body.innerHTML')
 	}
 
