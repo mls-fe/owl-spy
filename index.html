@@ -8,14 +8,15 @@
 <body>
 	<div id=m2 style="display:none;">
 		<p>
-			<span id='m2--showMain'> <- 返回</span>
-			刷新后生效: <input  id="m2--url"/> 
-			<input type=button id='m2--run' value="run" />
-			<input type=button id='m2--clean' value="clean" />
+			<span id='m2__showMain'> <- 返回</span>
+			刷新后生效: <input  id="m2__url"/> 
+			<input type=button id='m2__run' value="run" />
+			<input type=button id='m2__clean' value="clean" />
+			<label><input type=checkbox id='m2__console2Send' value=1 /> console2Send </label>
 		</p>
-		<div id="m2--pnl">
-			<textarea id="m2--output" placeholder="output result"></textarea>
-			<textarea id="m2--input" placeholder="input command                           console2Send() //take over console.log"></textarea>
+		<div id="m2__pnl">
+			<textarea id="m2__output" placeholder="output result"></textarea>
+			<textarea style="height:100%;width:50%;" id="m2__input" placeholder="input command                           console2Send() //take over console.log"></textarea>
 		</div>
 
 	</div>
@@ -37,8 +38,6 @@
 				<input type="button" id="reset" value="重 置" />
 				<span id="status"></span>
 			</div>
-			
-			
 		</div>
 		<br style="clear:both;" />
 		<div>
@@ -73,4 +72,15 @@
 <script src=js/main.js></script>
 <script src=js/contextmenu.js></script>
 <script src=js/interaction.js></script>
+<script language="javascript" type="text/javascript" src="edit_area/edit_area_full.js"></script>
+<script language="javascript" type="text/javascript">
+//http://www.cdolivet.com/editarea/editarea/docs/configuration.html
+editAreaLoader.init({
+		id : "m2__input"		// textarea id
+		,font_size : 10
+		,toolbar : "search,  fullscreen, |, undo,redo"
+		,syntax: "js"			// syntax to be uses for highgliting
+		,start_highlight: true		// to display with highlight mode on start-up
+});
+</script>
 </html>

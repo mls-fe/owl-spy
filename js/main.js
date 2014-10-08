@@ -2,7 +2,7 @@ var config = require('./config.json')
 	,workerCmd = {}
 	,result = {}
 	,detailId
-	,_set = {replace:{},append:{},spyon :[]}
+	,_set 
 
 
 var http = require('http')
@@ -45,7 +45,7 @@ workerCmd.reqComplete = workerCmd.reqStart =  function(val){
 }
 var sepLine = new Array(30).join('-')
 workerCmd.echoBk = function(val){
-	$('#m2--output')[0].value += val + '\n<' + sepLine + '>\n' 
+	$('#m2__output')[0].value += val + '\n<' + sepLine + '>\n' 
 }
 
 function log(){
@@ -62,7 +62,7 @@ function clean(releaseAll){
 	detailId = null
 	conUrl && conUrl.empty()
 	if (releaseAll){
-		_set = {replace:{},append:{},spyon:[]}
+		_set = {replace:{},append:{},spyon: require('./spyon.json')}
 	}
 	$('#detail').hide()
 	$('#editRule').hide()
@@ -197,7 +197,7 @@ function showDetail(act){
 			//if (_set.spyon.indexOf(url) == -1) return
 			//upSpyList(url ,'on')
 
-			$('#m2--url').val(url)
+			$('#m2__url').val(url)
 			$('#m1').hide()
 			$('#m2').show()
 			break
@@ -230,7 +230,7 @@ function upSpyList(url , opt){
 			}
 		}
 	}
-	$('#m1--spylist').val(_set.spyon.join('\n'))
+	$('#m1__spylist').val(_set.spyon.join('\n'))
 	upSetting()
 }
 
@@ -265,32 +265,35 @@ function main(){
 		$('#detail').show()
 		$('#detail .b').eq(0).trigger('click')
 	})
-	$('#m1--spylist').change(function(){
+	$('#m1__spylist').change(function(){
 		var list = this.value.trim().split('\n')
 		_set.spyon = []
 		list.forEach(function(i){
 			_set.spyon.push(i.trim() )
 		})
 		upSetting()
-	})
+	}).val(_set.spyon.join('\n'))
 	conUrl.on('click' , '.eys' , function(){
 		var id = $(this).parent().attr('id')
 		var url = result[id].uri
 		upSpyList(url)
 	})
 
-	$('#m2--showMain').click(function(){
+	$('#m2__showMain').click(function(){
 		$('#m1').show()
 		$('#m2').hide()
 	})
-	$('#m2--clean').click(function(){
-		$('#m2--output').val('')
+	$('#m2__clean').click(function(){
+		$('#m2__output').val('')
 	})
-	$('#m2--run').click(runRun)
-	$('#m2--input').change(runRun)
-	function runRun(){
-		var url = $('#m2--url').val()
-		nmqs.pub('s_' + url , $('#m2--input').val())
+	$('#m2__console2Send').change(function(){
+		runRun(null , 'console2Send(' + !this.checked + ')' )	
+	})
+	$('#m2__run').click(runRun)
+	$('#m2__input').change(runRun)
+	function runRun(evt , cmd){
+		var url = $('#m2__url').val()
+		nmqs.pub('s_' + url , cmd  || editAreaLoader.getValue('m2__input') || $('#m2__input').val())
 		//nmqs.pub('s_http://m.meilishuo.com/sq' ,'alert(2) ;\n return document.body.innerHTML')
 	}
 

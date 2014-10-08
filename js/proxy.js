@@ -158,6 +158,7 @@ function outPut(cmd , val){
 }
 
 var nmq = require('./nmq.js')
+	,nmqc //must be alone
 
 function start(){
 	parseArgs()
@@ -167,9 +168,12 @@ function start(){
 		req.id = getUid()
 		if (req.headers.owl) {
 			function unSub(){
-				nmqc.unSub('s_' + req.headers.owl)
+				//console.log('proxy client request exit')
+				nmqc && nmqc.exit()
+				nmqc = null
 			}
-			req.on('abort' , unSub)
+			unSub()
+			req.on('exit' , unSub)
 			var cstr = caster.bind(req ,res )
 			console.log('owl',req.headers.owl)
 			cstr.on('echoBk', function(val){
@@ -177,12 +181,14 @@ function start(){
 				outPut('echoBk' ,val )
 				})
 			cstr.on('end' , unSub)
-			var nmqc = nmq.startClient({"port" : config.qPort})
+
+			if ('GET' != req.method) return
+			nmqc = nmq.startClient({"port" : config.qPort})
 			nmqc.sub('s_' + req.headers.owl , function(cmd){
 				if (!cmd) return
 				console.log(req.headers.owl ,' to run ' , cmd , cmd.length)
 				cstr.send('run',cmd)
-				})
+				},{times : true})
 			return
 		}
 

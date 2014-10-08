@@ -33,7 +33,7 @@ exports.on =  function(type ,  cbk){
 
 exports.bind = function(req , res ,config){
 	notify.removeAllListeners()
-	setImmediate(function(){
+	if ('POST' == req.method) {
 
 		var data = [] 
 			,len = 0
@@ -43,18 +43,21 @@ exports.bind = function(req , res ,config){
 		}).addListener('end' ,function(){
 			if (len){
 				data = Buffer.concat(data, len).toString()
-				//console.log(data)
+				console.log(data)
 				data = querystring.parse(data)
 				var type = data.type
 					,val = data.val	
 			}
 			if (type) notify.emit(pre + type , val)
-
+			res.end()
+		})
+	}else {
+		setImmediate(function(){
 			//console.log(data , type,val)
 			//hold for output sth.
 			_send2Client(res)
 		})
-	})
+	}
 
 	return this
 }

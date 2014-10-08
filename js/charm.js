@@ -1,6 +1,7 @@
 ~function(global){
+	//change to 2 channel ,for lost up msg
 	try {
-		var xhr = new window.XMLHttpRequest()
+		var pxhr = new window.XMLHttpRequest()
 	}catch(err){
 		return alert('po')
 	}
@@ -19,23 +20,6 @@
 		send('echoBk' , error)
 		alert(error)
 	}
-	xhr.onreadystatechange = function(){
-		//alert(xhr.readyState +'|' + xhr.status)
-		if(xhr.readyState != 4) return
-		if (xhr.status == 200 && xhr.responseText){ 
-			try{
-				JSON.parse(xhr.responseText).forEach(function(msg){
-					var type = msg.type	
-						,val = msg.val
-					var echoBk = helper[type] && helper[type](val)
-					if (echoBk) send('echoBk' , echoBk)
-				})
-			}catch(err){
-				alert('response error :' + xhr.responseText)
-			}
-		}
-		send('init' ,true)
-	}
 
 
     function http_build_query (params){
@@ -52,7 +36,7 @@
 	}
 
 	function send(type , val){
-		xhr.abort && xhr.abort()
+		var xhr = new window.XMLHttpRequest()
 		var data = {type : type , val : val}
 		//alert(val)
 		xhr.open('POST', '/', true)
@@ -61,7 +45,32 @@
 		xhr.send(data ? http_build_query(data) : '')
 	}
 
-	send('init' ,true)
+	pxhr.onreadystatechange = function(){
+		//alert(xhr.readyState +'|' + xhr.status)
+		if(pxhr.readyState != 4) return
+		if (pxhr.status == 200 && pxhr.responseText){ 
+			try{
+				JSON.parse(pxhr.responseText).forEach(function(msg){
+					var type = msg.type	
+						,val = msg.val
+					var echoBk = helper[type] && helper[type](val)
+					if (echoBk) send('echoBk' , echoBk)
+				})
+			}catch(err){
+				alert('response error :' + pxhr.responseText)
+			}
+		}
+		ping()
+	}
+
+	function ping(){
+		pxhr.abort && pxhr.abort()
+		pxhr.open('GET', '/', true)
+		pxhr.setRequestHeader('owl', window.location.href)		
+		pxhr.send( )
+	}
+
+	ping()
 	var _oldlog = console.log
 	global.console2Send = function(recover){
 		if (recover){
