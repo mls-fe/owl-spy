@@ -142,7 +142,7 @@ function  hash2List(obj){
 	if (!obj) return ''
 	var r = []
 	for (var k in obj){
-		r.push('<tr><td>' + echoHTML(k) + '</td><td>' + echoHTML(obj[k]) + '</td></tr>')
+		r.push('<tr class="tr_con"><td>' + echoHTML(k) + '</td><td>' + echoHTML(obj[k]) + '</td></tr>')
 	}
 	return r.join('')
 }
@@ -161,19 +161,20 @@ function showDetail(act){
 	var sDetail = ''
 	switch (act){
 		case 'headers':
-			sDetail = '<h3>' + echoHTML(detl.uri) + ' cost : ' + detl.cost + 'ms </h3>'
-			sDetail += '<table><th><td colspan=2>请求头'
+			sDetail = '<h4>Request URL:' + echoHTML(detl.uri)+'</h4>'
+			sDetail += '<h4>Cost:' + detl.cost + 'ms </h4>'
+			sDetail += '<table><tr><td colspan=2 class="tle">请求头</td></tr>'
 			sDetail += hash2List(detl.req_headers) + '</table>'
-			sDetail += '<table><th><td colspan=2>响应头'
+			sDetail += '<table><tr><td colspan=2 class="tle">响应头</td></tr>'
 			sDetail += hash2List(detl.res_headers) + '</table>'
 
 			break
 		case 'params':
-			sDetail = '<table><th><td colspan=2>GET'
+			sDetail = '<table><tr><td colspan=2>GET</td></tr>'
 			sDetail += hash2List(detl.req_get) + '</table>'
-			sDetail += '<table><th><td colspan=2>POST'
+			sDetail += '<table><tr><td colspan=2>POST</td></tr>'
 			sDetail += hash2List(detl.req_post) + '</table>'
-			sDetail += '<table><th><td colspan=2>Request Cookies'
+			sDetail += '<table><tr><td colspan=2>Request Cookies</td></tr>'
 			sDetail += hash2List(parseCookie(detl.req_headers.cookie)) + '</table>'
 			break
 		case 'response':
@@ -216,6 +217,8 @@ function showDetail(act){
 			$('#editRule').show()
 			break
 	}
+	$('#detail .tab_w .s').removeClass('s')
+	$('#detail .tab_w [act='+act+']').addClass('s')
 	$('#dtlPnl').html(sDetail)
 
 

@@ -72,18 +72,16 @@ body {
   font-family: Arial;
   color: #3e454d;
 }
+html,
+body,
+#m1,
+#m2 {
+  height: 100%;
+}
 .clear_f {
   clear: both;
   overflow: hidden;
   height: 0px;
-}
-#url {
-  height: 300px;
-  overflow: auto;
-  word-break: break-all;
-}
-#url li {
-  cursor: pointer;
 }
 #m2 textarea {
   width: 49%;
@@ -194,4 +192,81 @@ body {
 .proxy_btn_wrapper input[type=button].disabled {
   background: #ccc!important;
   cursor: default;
+}
+#url {
+  line-height: 18px;
+  overflow: auto;
+  word-break: break-all;
+  height: 100%;
+}
+#url li {
+  cursor: pointer;
+}
+.top_w {
+  height: 10%;
+  min-height: 82px;
+}
+.mid_w {
+  height: 45%;
+  min-height: 150px;
+  border: 1px solid #3e454d;
+  margin: 0 10px;
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
+  padding-left: 10px;
+}
+.bottom_w {
+  height: 40%;
+  margin: 0 10px;
+  min-height: 150px;
+}
+#detail {
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
+  margin-top: 5px;
+}
+#detail .content_w {
+  border: 1px solid #3e454d;
+  padding: 5px;
+  margin-bottom: -1px;
+  height: 200px;
+  overflow: auto;
+}
+#detail span.b {
+  line-height: 24px;
+  float: left;
+  text-align: center;
+  padding: 0px 10px;
+  margin-right: 2px;
+  cursor: pointer;
+  background: #ccc;
+  -webkit-border-radius: 2px 2px 0 0;
+  border-radius: 2px 2px 0 0;
+}
+#detail span.b.s {
+  background: #3e454d!important;
+  color: #fff;
+}
+#detail span.b:hover {
+  background: #5e6771;
+  color: #fff;
+}
+#dtlPnl {
+  line-height: 16px;
+}
+#dtlPnl table {
+  border-collapse: collapse;
+}
+#dtlPnl td:first-child {
+  white-space: nowrap;
+  padding-right: 10px;
+  vertical-align: top;
+}
+#dtlPnl .tle {
+  font-weight: bolder;
+  padding: 10px 0 5px 0;
+  font-size: 14px;
+}
+#dtlPnl .tr_con:hover {
+  background: #eee;
 }
