@@ -121,6 +121,9 @@ function stopProxy(cb){
 	// showStatus('stop')
 	eachWorker(function(worker) {
 		worker.disconnect()
+		setTimeout(function(){
+			worker.process.kill()
+		}, 10)
 	})
 	if(cb) cb()
 }
