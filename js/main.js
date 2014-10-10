@@ -27,15 +27,15 @@ function upResultCache( val){
 		result[id][k] = val[k]
 	}
 	if ('text/html' == val.res_type){
-		$('#' + id).append('<span class=eys >(o)</span>')
+		$('#' + id).append('<span class=eys >'+getIcon('icon_spy_status.png')+'</span>')
 		///console.log(result[id].uri , val.res_type)
 	}
 }
 workerCmd.printUrl = function(val){
 	var mark = ''
-	if (val.url in  _set.replace) mark  = '[*]'
-	else if (val.url in  _set.append) mark  = '[+]'
-	if (_set.spyon.indexOf(val.url) !=-1) mark += '[o]'
+	if (val.url in  _set.replace) mark  = getIcon('replace')
+	else if (val.url in  _set.append) mark  = getIcon('add')
+	if (_set.spyon.indexOf(val.url) !=-1) mark += getIcon('spy')
 
 	//mark += '<span class=eys url="' + val.url + '">(o)</span>'
 	conUrl.append('<li id="' + val.id + '" >' + val.url + ' ' +  mark + '</li>')
@@ -372,6 +372,21 @@ function getIP(){
 	  })
 	}
 	return ret
+}
+
+function getIcon(name){
+	var result = ''
+	switch (name){
+		case 'add':
+		case 'replace':
+		case 'spy':
+			result = '<img src="img/icon_'+name+'.png" class="icon">'
+			break;
+		default :
+			result = '<img src="img/'+name+'" class="icon">'
+			break;
+	}
+	return result
 }
 
 clean(true)
