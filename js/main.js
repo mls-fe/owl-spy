@@ -332,6 +332,9 @@ function main(){
 	$('#m2__console2Send').change(function(){
 		runRun(null , 'OE_console2Send(' + !this.checked + ')' )	
 	})
+	$('#m2__OE_snap').click(function(){
+		runRun(null , 'OE_snap()' )	
+	})
 	$('#m2__run').click(runRun)
 	$('#m2__input').change(runRun)
 

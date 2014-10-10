@@ -13,10 +13,11 @@
 			<input type=button id='m2__run' value="run" />
 			<input type=button id='m2__clean' value="clean" />
 			<label><input checked type=checkbox id='m2__console2Send' value=1 /> console2Send </label>
+			<label><input type=button id='m2__OE_snap' value=读取文档 /></label>
 		</p>
 		<div id="m2__pnl">
 			<textarea id="m2__output" placeholder="output result"></textarea>
-			<textarea style="height:100%;width:50%;" id="m2__input" placeholder="input command                           console2Send() //take over console.log">OE_snap()</textarea>
+			<textarea style="height:100%;width:50%;" id="m2__input" placeholder="input command                           console2Send() //take over console.log"></textarea>
 		</div>
 
 	</div>
@@ -75,13 +76,5 @@ editAreaLoader.init({
 		,syntax: "js"			// syntax to be uses for highgliting
 		,start_highlight: true		// to display with highlight mode on start-up
 });
-
-(function() {
-	var nw  = require('nw.gui');
-	var win = nw.Window.get();
-	var nativeMenuBar = new nw.Menu({type: 'menubar'});
-	nativeMenuBar.createMacBuiltin("owl-spy");
-	win.menu = nativeMenuBar;
-}())
 </script>
 </html>
