@@ -338,7 +338,7 @@ function main(){
 		if (!detailId || ! result[detailId]) return 
 		showDetail( this.getAttribute('act') )
 	})
-	$('#url_filter').change(function(){
+	$('#url_filter').on('input',function(){
 		config.url_filter = this.value.trim()
 		upConfig()
 	})

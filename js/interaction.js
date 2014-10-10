@@ -1,6 +1,6 @@
 //clear url filter
 $('#clear_btn').on('click', function(event) {
-	$('#url_filter').val('')
+	$('#url_filter').val('').trigger('input')
 })
 
 function showStatus(txt){
