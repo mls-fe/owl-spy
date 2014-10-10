@@ -100,10 +100,13 @@ html,body,#m1,#m2{height: 100%;}
 	}
 }
 #dtlPnl{line-height: 16px;
+	h4{word-break:break-all;}
 	table{border-collapse: collapse;}
 	td:first-child{white-space: nowrap;padding-right: 10px;vertical-align: top;}
 	.tle{font-weight: bolder;padding: 10px 0 5px 0;font-size: 14px;}
 	.tr_con:hover{background: #eee;}
 }
-.eys{vertical-align: middle;cursor: copy;}
+.eys{vertical-align: middle;cursor: default;
+	&:active{opacity: 0.5;}
+}
 .icon{width: 16px;height: 16px;vertical-align: middle;}

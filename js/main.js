@@ -199,11 +199,11 @@ function showDetail(act){
 
 			break
 		case 'params':
-			sDetail = '<table><tr><td colspan=2>GET</td></tr>'
+			sDetail = '<table><tr><td colspan=2><b>GET</b></td></tr>'
 			sDetail += hash2List(detl.req_get) + '</table>'
-			sDetail += '<table><tr><td colspan=2>POST</td></tr>'
+			sDetail += '<table><tr><td colspan=2><b>POST</b></td></tr>'
 			sDetail += hash2List(detl.req_post) + '</table>'
-			sDetail += '<table><tr><td colspan=2>Request Cookies</td></tr>'
+			sDetail += '<table><tr><td colspan=2><b>Request Cookies</b></td></tr>'
 			sDetail += hash2List(parseCookie(detl.req_headers.cookie)) + '</table>'
 			break
 		case 'response':

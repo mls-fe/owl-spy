@@ -254,6 +254,9 @@ body,
 #dtlPnl {
   line-height: 16px;
 }
+#dtlPnl h4 {
+  word-break: break-all;
+}
 #dtlPnl table {
   border-collapse: collapse;
 }
@@ -272,7 +275,10 @@ body,
 }
 .eys {
   vertical-align: middle;
-  cursor: copy;
+  cursor: default;
+}
+.eys:active {
+  opacity: 0.5;
 }
 .icon {
   width: 16px;
