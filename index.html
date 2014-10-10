@@ -76,5 +76,14 @@ editAreaLoader.init({
 		,syntax: "js"			// syntax to be uses for highgliting
 		,start_highlight: true		// to display with highlight mode on start-up
 });
+
+(function() {
+	var nw  = require('nw.gui');
+	var win = nw.Window.get();
+	var nativeMenuBar = new nw.Menu({type: 'menubar'});
+	nativeMenuBar.createMacBuiltin("owl-spy");
+	win.menu = nativeMenuBar;
+}())
+
 </script>
 </html>
