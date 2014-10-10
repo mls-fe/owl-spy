@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<style>
+div.tag{
+	margin-left: 20px;
+	overflow:hidden;
+}
+.foldBtn {
+	margin-right : 5px;
+}
+.text {
+	background:rgba(0,22,22 , .5)
+}
+</style>
+</head>
+<body>
+<div id=domTree>
+</div>
+<ul id=styel>
+</ul>
+</body>
+<script src=js/jquery-2.1.1.js></script>
+<script>
+var htmlparser = require("htmlparser2")
+	,querystring = require('querystring')
+
+var domTree = document.getElementById('domTree')
+function show(con){
+	domTree.innerHTML = ''
+	var table = ''
+	var tab = 0
+	var parser = new htmlparser.Parser({
+		onopentag: function(name, attribs){
+			var oeid = attribs.OE_id || ''
+			var attrs = [] 
+			for (var attr in attribs){
+				attrs.push( attr + '="' + decodeURIComponent(attribs[attr]) + '"' )
+			}
+			attrs = attrs.length ?  ' ' + attrs.join(' ') : ''
+			table += '<div class="tag" tab="' + tab+ '" OE_id="' + oeid + '"> <span class="foldBtn unfold ">-</span>&lt;' + name  + attrs + '&gt;'  
+			tab++
+		},
+		ontext: function(text){
+			table += '<div class="text">' + text + '</div>'
+		},
+		onclosetag: function(tagname){
+			tab--
+			table += '&lt;/' + tagname + '&gt;</div>'
+		}
+	})
+	parser.write(con)
+	parser.end()
+	domTree.innerHTML = table
+}
+$('#domTree').on('click' , '.foldBtn' , function(){
+	var foldBtn = $(this)
+	if (foldBtn.is('.unfold')){
+		foldBtn.html('+').removeClass('unfold').addClass('fold')
+				.parent().height(20)
+	}else{
+		foldBtn.html('-').removeClass('fold').addClass('unfold')
+				.parent().height('auto')
+	}
+})
+
+</script>
+</html>

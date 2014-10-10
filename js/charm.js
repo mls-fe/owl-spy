@@ -72,7 +72,7 @@
 
 	ping()
 	var _oldlog = console.log
-	global.console2Send = function(recover){
+	global.OE_console2Send = function(recover){
 		if (recover){
 			console.log  = _oldlog
 		}else{
@@ -82,6 +82,25 @@
 			}
 		}
 		alert(recover ? 'console.log is recover' : 'Take over console.log')
+	}
+
+	global.OE_snap = function(){
+		var index = 0
+		var all = document.getElementsByTagName("*")
+		function  mark(node){
+			if (1 != node.nodeType) return
+			node.setAttribute('OE_id' , 'OE_' + index++)
+		/*
+			if(window.getComputedStyle){
+				var stl = window.getComputedStyle(node).cssText
+				node.setAttribute('OE_style' , stl)   
+			}
+		*/
+		}
+		for (var i = 0 , j = all.length; i < j ;i++){
+			mark(all[i])
+		}
+		send('snapBk' , document.documentElement.innerHTML)
 	}
 
 }(window)

@@ -180,6 +180,10 @@ function start(){
 				//console.log('echoBk' ,val)
 				outPut('echoBk' ,val )
 				})
+			cstr.on('snapBk', function(val){
+				//console.log('echoBk' ,val)
+				outPut('snapBk' ,val )
+				})
 			cstr.on('end' , unSub)
 
 			if ('GET' != req.method) return

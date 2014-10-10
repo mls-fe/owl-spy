@@ -9,5 +9,6 @@
     "height": 600
   },
   "dependencies": {
+    "htmlparser2": "~3.7.3"
   }
 }

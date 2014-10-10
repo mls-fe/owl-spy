@@ -10,6 +10,7 @@ var http = require('http')
     ,path = require('path')
 	,cluster = require('cluster')
 	,querystring = require('querystring')
+	,gui = require('nw.gui')
 
 var nmq = require('./js/nmq.js')
 var nmqs
@@ -43,10 +44,26 @@ workerCmd.printUrl = function(val){
 workerCmd.reqComplete = workerCmd.reqStart =  function(val){
 	upResultCache(val)
 }
+
+
 var sepLine = new Array(30).join('-')
 workerCmd.echoBk = function(val){
 	$('#m2__output')[0].value += val + '\n<' + sepLine + '>\n' 
 }
+workerCmd.snapBk = function(val){
+	 var domWin = gui.Window.open('dom.html',{
+						  "position": "center",
+						  "focus": true,
+						  "width" : 901,
+						  "height" : 600,
+						  //"toolbar": false,
+						  "frame": true
+						})
+	domWin.on('document-end',function(){
+		domWin.window.window.show( val )
+	})
+}
+//workerCmd.snapBk(fs.readFileSync('./tt'))
 
 function log(){
 	var args = Array.prototype.slice.call(arguments , 0)
@@ -293,7 +310,7 @@ function main(){
 		$('#m2__output').val('')
 	})
 	$('#m2__console2Send').change(function(){
-		runRun(null , 'console2Send(' + !this.checked + ')' )	
+		runRun(null , 'OE_console2Send(' + !this.checked + ')' )	
 	})
 	$('#m2__run').click(runRun)
 	$('#m2__input').change(runRun)
