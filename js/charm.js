@@ -83,6 +83,18 @@
 		}
 		alert(recover ? 'console.log is recover' : 'Take over console.log')
 	}
+	global.OE_snapStyle = function(OE_id,winid ,newStyle){
+		var dom = $('[OE_id=' + OE_id + ']') 
+		alert('读取样式')
+		if (dom.length < 1) return alert('节点没找到')
+		if (newStyle){
+			for (var name in newStyle){
+				dom.css(name , newStyle[name])
+			}
+		}
+		var cssText = window.getComputedStyle(dom[0]).cssText
+		send('styleBk' ,JSON.stringify({OE_id : OE_id ,winid : winid, cssText :cssText}) )
+	}
 
 	global.OE_snap = function(){
 		var index = 0
@@ -101,6 +113,8 @@
 			mark(all[i])
 		}
 		send('snapBk' , document.documentElement.innerHTML)
+		alert('发送文档')
 	}
+	OE_console2Send()
 
 }(window)

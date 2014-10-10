@@ -50,18 +50,33 @@ var sepLine = new Array(30).join('-')
 workerCmd.echoBk = function(val){
 	$('#m2__output')[0].value += val + '\n<' + sepLine + '>\n' 
 }
+
+var cssWins = {}
+workerCmd.styleBk = function(val){
+	var domWin = cssWins[val.winid]
+	domWin.window.window.cssRules(val.cssText , val.OE_id)
+	//console.log(val)
+}
 workerCmd.snapBk = function(val){
-	 var domWin = gui.Window.open('dom.html',{
+	var id = (+new Date).toString(32)
+	var domWin = gui.Window.open('dom.html',{
 						  "position": "center",
 						  "focus": true,
-						  "width" : 901,
+						  "width" : 1200,
 						  "height" : 600,
-						  //"toolbar": false,
+						  "toolbar": false,
 						  "frame": true
 						})
+	cssWins[id] = domWin
+	domWin.on('document-start',function(){
+		domWin.window.window._winid = id
+	})
 	domWin.on('document-end',function(){
 		domWin.window.window.show( val )
 	})
+}
+function snapStyle(id , winid , newStyle){
+	runRun(null , 'OE_snapStyle("' + id + '" , "' + winid + '" ,  '+  (newStyle? JSON.stringify(newStyle) : 'null')+ ')')
 }
 //workerCmd.snapBk(fs.readFileSync('./tt'))
 
@@ -85,6 +100,13 @@ function clean(releaseAll){
 	$('#editRule').hide()
 }
 
+function showStatus(txt){
+	$('#status').html(txt)
+	window.setTimeout(function(){
+		$('#status').html('')
+	},3000)
+}
+
 function eachWorker(callback) {
 	for (var id in cluster.workers) {
 		callback(cluster.workers[id]);
@@ -105,10 +127,10 @@ function receiveFromWorker(msg){
 	workerCmd[cmd] && workerCmd[cmd](val)
 }
 
-function startProxy(cb) {
+function startProxy() {
 	config.port = $('#port').val()
-	// showStatus('start')
-	console.log(cluster.workers)
+	showStatus('start')
+	//console.log(cluster.workers)
 	cluster.setupMaster({
 		exec : "js/proxy.js",
 		args : ['--port=' + config.port]
@@ -131,18 +153,13 @@ function startProxy(cb) {
         })
 		*/
 	}
-	if(cb) cb()
 }
 
-function stopProxy(cb){
-	// showStatus('stop')
+function stopProxy(){
+	showStatus('stop')
 	eachWorker(function(worker) {
 		worker.disconnect()
-		setTimeout(function(){
-			worker.process.kill()
-		}, 10)
 	})
-	if(cb) cb()
 }
 
 function upConfig(worker){
@@ -159,7 +176,7 @@ function  hash2List(obj){
 	if (!obj) return ''
 	var r = []
 	for (var k in obj){
-		r.push('<tr class="tr_con"><td>' + echoHTML(k) + '</td><td>' + echoHTML(obj[k]) + '</td></tr>')
+		r.push('<tr><td>' + echoHTML(k) + '</td><td>' + echoHTML(obj[k]) + '</td></tr>')
 	}
 	return r.join('')
 }
@@ -178,20 +195,19 @@ function showDetail(act){
 	var sDetail = ''
 	switch (act){
 		case 'headers':
-			sDetail = '<h4>Request URL:' + echoHTML(detl.uri)+'</h4>'
-			sDetail += '<h4>Cost:' + detl.cost + 'ms </h4>'
-			sDetail += '<table><tr><td colspan=2 class="tle">请求头</td></tr>'
+			sDetail = '<h3>' + echoHTML(detl.uri) + ' cost : ' + detl.cost + 'ms </h3>'
+			sDetail += '<table><th><td colspan=2>请求头'
 			sDetail += hash2List(detl.req_headers) + '</table>'
-			sDetail += '<table><tr><td colspan=2 class="tle">响应头</td></tr>'
+			sDetail += '<table><th><td colspan=2>响应头'
 			sDetail += hash2List(detl.res_headers) + '</table>'
 
 			break
 		case 'params':
-			sDetail = '<table><tr><td colspan=2>GET</td></tr>'
+			sDetail = '<table><th><td colspan=2>GET'
 			sDetail += hash2List(detl.req_get) + '</table>'
-			sDetail += '<table><tr><td colspan=2>POST</td></tr>'
+			sDetail += '<table><th><td colspan=2>POST'
 			sDetail += hash2List(detl.req_post) + '</table>'
-			sDetail += '<table><tr><td colspan=2>Request Cookies</td></tr>'
+			sDetail += '<table><th><td colspan=2>Request Cookies'
 			sDetail += hash2List(parseCookie(detl.req_headers.cookie)) + '</table>'
 			break
 		case 'response':
@@ -234,8 +250,6 @@ function showDetail(act){
 			$('#editRule').show()
 			break
 	}
-	$('#detail .tab_w .s').removeClass('s')
-	$('#detail .tab_w [act='+act+']').addClass('s')
 	$('#dtlPnl').html(sDetail)
 
 
@@ -257,6 +271,12 @@ function upSpyList(url , opt){
 	upSetting()
 }
 
+function runRun(evt , cmd){
+	var url = $('#m2__url').val()
+	nmqs.pub('s_' + url , cmd  || editAreaLoader.getValue('m2__input') || $('#m2__input').val())
+	//nmqs.pub('s_http://m.meilishuo.com/sq' ,'alert(2) ;\n return document.body.innerHTML')
+}
+
 function main(){
 	var serverIp = getIP()[0]
 	var qPort = config.port + 1
@@ -271,8 +291,8 @@ function main(){
 
 	$('#port').val(config.port)
 	$('#localip').html(serverIp)
-	// $('#start').click(startProxy)
-	// $('#stop').click(stopProxy)
+	$('#start').click(startProxy)
+	$('#stop').click(stopProxy)
 	$('#clean').click(clean.bind(null,false))
 	$('#reset').click(clean.bind(null, true))
 	$('#url').on('click' ,'li' ,function(){
@@ -314,11 +334,6 @@ function main(){
 	})
 	$('#m2__run').click(runRun)
 	$('#m2__input').change(runRun)
-	function runRun(evt , cmd){
-		var url = $('#m2__url').val()
-		nmqs.pub('s_' + url , cmd  || editAreaLoader.getValue('m2__input') || $('#m2__input').val())
-		//nmqs.pub('s_http://m.meilishuo.com/sq' ,'alert(2) ;\n return document.body.innerHTML')
-	}
 
 	$('#detail .b').click(function(){
 		if (!detailId || ! result[detailId]) return 

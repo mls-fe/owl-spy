@@ -43,7 +43,7 @@ exports.bind = function(req , res ,config){
 		}).addListener('end' ,function(){
 			if (len){
 				data = Buffer.concat(data, len).toString()
-				console.log(data)
+				//console.log(data)
 				data = querystring.parse(data)
 				var type = data.type
 					,val = data.val	

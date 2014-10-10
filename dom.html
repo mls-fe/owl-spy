@@ -7,18 +7,46 @@ div.tag{
 	overflow:hidden;
 }
 .foldBtn {
-	margin-right : 5px;
+	float:left;
+	display : block;
+	cursor : pointer;
+	width : 10px;
+}
+.tagCon{
+	display : block;
+	margin-left :10px;
+
 }
 .text {
-	background:rgba(0,22,22 , .5)
+	font-size : 12px;
+	color :rgb(135,206,250 )
+}
+
+#domTree {
+	margin-right : 500px;
+}
+#stylePnl {
+	position :absolute;
+	right : 0 ;
+	top : 3px;
+	width : 500px;
+	border:1px solid #ccc;
+	background:rgba(255,255,224 , .6)
+}
+.csstext {
+	border-left:1px solid #ccc;
+}
+.showing {
+	background:rgba(255,228,196 , .6)
+}
 }
 </style>
 </head>
 <body>
 <div id=domTree>
 </div>
-<ul id=styel>
-</ul>
+<div id=stylePnl>
+</div>
 </body>
 <script src=js/jquery-2.1.1.js></script>
 <script>
@@ -26,19 +54,27 @@ var htmlparser = require("htmlparser2")
 	,querystring = require('querystring')
 
 var domTree = document.getElementById('domTree')
+	,stylePnl = document.getElementById('stylePnl')
+
 function show(con){
 	domTree.innerHTML = ''
 	var table = ''
 	var tab = 0
 	var parser = new htmlparser.Parser({
 		onopentag: function(name, attribs){
-			var oeid = attribs.OE_id || ''
+			var OE_id = attribs.oe_id || ''
+			delete attribs.oe_id
 			var attrs = [] 
 			for (var attr in attribs){
-				attrs.push( attr + '="' + decodeURIComponent(attribs[attr]) + '"' )
+				var attrval = attribs[attr]
+				try {
+					attrval = decodeURIComponent(attrval)
+				}catch(err){
+				}
+				attrs.push( attr + '="' + attrval  + '"' )
 			}
 			attrs = attrs.length ?  ' ' + attrs.join(' ') : ''
-			table += '<div class="tag" tab="' + tab+ '" OE_id="' + oeid + '"> <span class="foldBtn unfold ">-</span>&lt;' + name  + attrs + '&gt;'  
+			table += '<div class="tag" tab="' + tab+ '" OE_id="' + OE_id + '"> <span class="foldBtn unfold ">-</span><div class="tagCon">&lt;' + name  + attrs + '&gt;'  
 			tab++
 		},
 		ontext: function(text){
@@ -46,13 +82,28 @@ function show(con){
 		},
 		onclosetag: function(tagname){
 			tab--
-			table += '&lt;/' + tagname + '&gt;</div>'
+			table += '&lt;/' + tagname + '&gt;</div></div>'
 		}
 	})
 	parser.write(con)
 	parser.end()
 	domTree.innerHTML = table
 }
+
+function cssRules(rules , OE_id){
+	if (!OE_id || !$('[OE_id=' + OE_id + ']').length) return
+	rules = querystring.parse(rules , ';',':')
+	$('.showing').removeClass('showing')
+	stylePnl.innerHTML = ''
+	var table = '<table>'
+	for (var name in rules){
+		table += '<tr><td>' + name + '<td class="csstext">' + rules[name].trim()
+	}
+	table += '<tr><td><input  id=newCssName OE_id="' + OE_id +'"  /><td class="csstext"><input id="newCssVal" />' 
+	stylePnl.innerHTML = table
+	$('[OE_id=' + OE_id + ']').addClass('showing')[0].scrollIntoView()
+}
+
 $('#domTree').on('click' , '.foldBtn' , function(){
 	var foldBtn = $(this)
 	if (foldBtn.is('.unfold')){
@@ -62,7 +113,26 @@ $('#domTree').on('click' , '.foldBtn' , function(){
 		foldBtn.html('-').removeClass('fold').addClass('unfold')
 				.parent().height('auto')
 	}
+	return false
+})
+$('#stylePnl').on('change' , '#newCssVal' , function(){
+	var newCssVal = $('#newCssVal').val().trim()
+		,newCssName = $('#newCssName').val().trim()
+		,OE_id = $('#newCssName').attr('OE_id')
+	if (!OE_id || !newCssName || !newCssVal) return 
+	var newStyle = {}
+	newStyle[newCssName] = newCssVal
+	window.opener.snapStyle(OE_id ,_winid ,newStyle)
+
+})
+$('#domTree').on('click' , '.tag' , function(){
+	var OE_id = $(this).attr('OE_id')
+	OE_id && window.opener.snapStyle(OE_id ,_winid)
+	
+	return false
+
 })
 
 </script>
+<script src=js/contextmenu.js></script>
 </html>

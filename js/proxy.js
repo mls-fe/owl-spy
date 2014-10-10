@@ -177,12 +177,13 @@ function start(){
 			var cstr = caster.bind(req ,res )
 			console.log('owl',req.headers.owl)
 			cstr.on('echoBk', function(val){
-				//console.log('echoBk' ,val)
 				outPut('echoBk' ,val )
 				})
 			cstr.on('snapBk', function(val){
-				//console.log('echoBk' ,val)
 				outPut('snapBk' ,val )
+				})
+			cstr.on('styleBk', function(val){
+				outPut('styleBk' ,JSON.parse(val) )
 				})
 			cstr.on('end' , unSub)
 
