@@ -23,31 +23,52 @@
 	</div>
 	<div id="m1">
 		<div id="m1__spy">
-			<p>eye on</p>
+			<p>查&nbsp;&nbsp;看</p>
 			<textarea id="m1__spylist"></textarea>	
 		</div>
-		<div id="m1__operat">
-			<p> ip:<span id="localip" ></span>  ,port :<input id=port  value="4000"/>  ;url filter :<input id=url_filter /> </p>
-			<input type=button id="start" value=start />
-			<input type=button id="stop" value=stop />
-			<input type=button id="clean" value=clean />
-			<input type=button id="reset" value=reset />
-			<span id="status"></span>
-		</div>
-		<br style="clear:both;" />
-		<div>
+		<div id="m1__operat" class="top_w">
+			<p class="proxy_info_wrapper">
+				IP:<span id="localip" >127.0.0.1</span>  
+				Port:<input id="port" type="number" min="80" max="99999"  value="4000"/>  
+				Url Filter:<input id="url_filter" type="text" /><input title="清空Url Filter" type="button" id="clear_btn" value="清空">
+			</p>
+			<div class="proxy_btn_wrapper">
+				<input type="button" id="start" value="启 动" />
+				<input type="button" id="stop" value="停 止" class="disabled" />
+				<input type="button" id="clean" value="清 屏" />
+				<input type="button" id="reset" value="重 置" />
+				<span id="status"></span>
+			</div>
+		<div class="mid_w">
 			<ul id="url">
 			</ul>
 		</div>
 		<div id="log"></div>
-		<div id="detail" style="display:none;">
-			<span class="b" act="headers">Headers</span>	
-			<span class="b" act="params">Params</span>	
-			<span class="b" act="response">Response</span>	
-			<span class="b" act="beauty">Beauty</span>	
-			<span class="b" act="edit">Edit</span>	
-			<span class="b spybtn" act="spy">Spy</span>	
-			<div id="dtlPnl"></div>
+		<div id="detail" class="bottom_w">
+			<div class="tab_w">
+				<span class="b s" act="headers">Headers</span>	
+				<span class="b" act="params">Params</span>	
+				<span class="b" act="response">Response</span>	
+				<span class="b" act="beauty">Beauty</span>	
+				<span class="b" act="edit">Edit</span>	
+				<span class="b spybtn" act="spy">Spy</span>	
+				<div class="clear_f"></div>
+			</div>
+			<div class="content_w">
+				<div id="dtlPnl"></div>
+				<div id="edit">
+					<form id="editRule" style="display:none;">
+						<p>
+							<label> <input type=radio name="edit" value="replace" /> 替换 </label>
+							<label> <input type=radio name="edit" value="append" checked /> 追加 </label>
+						</p>
+						<textarea id="editCon" name="editCon"></textarea>
+						<p>
+							<input type=submit value=submit />
+						</p>
+					</form>
+				</div>
+			</div>
 		</div>
 		<div id="edit">
 			<form id="editRule" style="display:none;">
@@ -66,6 +87,7 @@
 <script src=js/jquery-2.1.1.js></script>
 <script src=js/main.js></script>
 <script src=js/contextmenu.js></script>
+<script src=js/interaction.js></script>
 <script language="javascript" type="text/javascript" src="edit_area/edit_area_full.js"></script>
 <script language="javascript" type="text/javascript">
 //http://www.cdolivet.com/editarea/editarea/docs/configuration.html
