@@ -32,3 +32,22 @@ $('#start,#stop').on('click', function(event) {
 $('#edit').on('click','.clear_all', function(event) {
 	$('#editCon').val('')
 })
+
+$('.adjust').on('click', function(event) {
+	var self = $(this)
+	var midH = $('.mid_w').height()
+		,bottomH = $('.bottom_w').height()
+		,contentH = $('.content_w').height()
+	var c = 150
+	if(self.hasClass('extend')){
+		$('.mid_w').css('height', midH+c+'px')
+		$('.bottom_w').css('height', bottomH-c+'px')
+		$('.content_w').css('height', contentH-c+'px')
+		self.removeClass('extend')
+	} else {
+		$('.mid_w').css('height', midH-c+'px')
+		$('.bottom_w').css('height', bottomH+c+'px')
+		$('.content_w').css('height', contentH+c+'px')
+		self.addClass('extend')
+	}
+})

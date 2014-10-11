@@ -204,22 +204,26 @@ body,
   cursor: pointer;
 }
 .top_w {
-  height: 10%;
-  min-height: 82px;
+  height: 82px;
+  transition: height 0.5s;
+  -webkit-transition: height 0.5s;
 }
 .mid_w {
-  height: 45%;
-  min-height: 150px;
+  height: 200px;
+  min-height: 100px;
   border: 1px solid #3e454d;
   margin: 0 10px;
   -webkit-border-radius: 2px;
   border-radius: 2px;
   padding-left: 10px;
+  transition: height 0.5s;
+  -webkit-transition: height 0.5s;
 }
 .bottom_w {
-  height: 40%;
+  height: 305px;
   margin: 0 10px;
-  min-height: 150px;
+  transition: height 0.5s;
+  -webkit-transition: height 0.5s;
 }
 #detail {
   -webkit-border-radius: 2px;
@@ -227,11 +231,13 @@ body,
   margin-top: 5px;
 }
 #detail .content_w {
+  height: 268px;
   border: 1px solid #3e454d;
   padding: 5px;
   margin-bottom: -1px;
-  height: 200px;
   overflow: auto;
+  transition: height 0.5s;
+  -webkit-transition: height 0.5s;
 }
 #detail span.b {
   line-height: 24px;
@@ -251,6 +257,21 @@ body,
 #detail span.b:hover {
   background: #5e6771;
   color: #fff;
+}
+#detail .adjust {
+  float: right;
+  margin-right: 20px;
+  width: 10px;
+  height: 10px;
+  border: 1px solid #5e6771;
+  margin-top: 6px;
+  cursor: n-resize;
+}
+#detail .adjust:active {
+  border-color: #3e454d;
+}
+#detail .adjust.extend {
+  cursor: s-resize;
 }
 #dtlPnl {
   line-height: 16px;
