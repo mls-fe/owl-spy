@@ -352,7 +352,9 @@ function main(){
 		delete _set.replace[url]
 		if (conf.editCon) _set[conf.edit][url] = conf.editCon
 		upSetting()
-		alert('upConfig')	
+		$('.edit_tip').text('保存成功').removeClass('ani')
+		setTimeout(function(){$('.edit_tip').addClass('ani')}, 10)
+		// alert('保存成功')	
 
 		return false
 	})

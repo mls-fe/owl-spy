@@ -59,13 +59,15 @@
 				<div id="dtlPnl"></div>
 				<div id="edit">
 					<form id="editRule" style="display:none;">
-						<p>
+						<p class="radio_wrapper">
 							<label> <input type=radio name="edit" value="replace" /> 替换 </label>
 							<label> <input type=radio name="edit" value="append" checked /> 追加 </label>
 						</p>
 						<textarea id="editCon" name="editCon"></textarea>
 						<p>
-							<input type=submit value=submit />
+							<input type=submit value="保存" />
+							<input type=button value="清空" class="clear_all" />
+							<span class="edit_tip"></span>
 						</p>
 					</form>
 				</div>

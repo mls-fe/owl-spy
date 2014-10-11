@@ -71,6 +71,7 @@ body {
   font-size: 12px;
   font-family: Arial;
   color: #3e454d;
+  overflow: auto;
 }
 html,
 body,
@@ -118,7 +119,7 @@ body,
   margin: auto;
 }
 #m1__spy p {
-  padding: 5px;
+  padding: 2px;
 }
 #m1__spy:hover {
   width: 40%;
@@ -284,4 +285,48 @@ body,
   width: 16px;
   height: 16px;
   vertical-align: middle;
+}
+#edit input[type=submit],
+#edit .clear_all {
+  width: 60px;
+  margin-right: 10px;
+  background: #5e6771;
+  border: none;
+  padding: 5px;
+  color: #fff;
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
+  cursor: pointer;
+}
+#edit input[type=submit]:active,
+#edit .clear_all:active {
+  background: #3e454d;
+}
+#edit .edit_tip {
+  color: #00aeef;
+  opacity: 0;
+}
+#edit .edit_tip.ani {
+  animation: edit_tip_a 2s linear 0s 1 normal;
+  -webkit-animation: edit_tip_a 2s linear 0s 1 normal;
+}
+@-webkit-keyframes edit_tip_a {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+#edit .radio_wrapper {
+  line-height: 28px;
+}
+#edit .radio_wrapper label {
+  vertical-align: middle;
+  margin-right: 10px;
+  cursor: pointer;
+}
+#editCon {
+  width: 80%;
+  height: 120px;
 }

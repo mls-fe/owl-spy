@@ -28,3 +28,7 @@ $('#start,#stop').on('click', function(event) {
 	}
 	
 })
+
+$('#edit').on('click','.clear_all', function(event) {
+	$('#editCon').val('')
+})
