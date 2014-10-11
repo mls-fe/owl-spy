@@ -1,16 +1,26 @@
-var config = require('./config.json') 
-	,workerCmd = {}
-	,result = {}
-	,detailId
-	,_set 
-
-
 var http = require('http')
     ,fs = require('fs')
     ,path = require('path')
 	,cluster = require('cluster')
 	,querystring = require('querystring')
 	,gui = require('nw.gui')
+
+var exePath = (function(){
+	var epth = path.dirname( process.execPath )
+	if (epth.indexOf('.app/Contents/') > 0 ){ //mac
+		return path.dirname(epth.slice(0 , epth.indexOf('.app/')) )
+	}
+	return './'
+})()
+var config = loadConf('config') 
+	,workerCmd = {}
+	,result = {}
+	,detailId
+	,_set 
+
+
+
+
 
 var nmq = require('./js/nmq.js')
 var nmqs
@@ -89,12 +99,16 @@ function log(){
 	$('#log').html(errTxt.join('\n'))
 }
 
+function loadConf(name){
+	name = '/' + name + '.json'
+	return fs.existsSync(exePath + name) ? require(exePath + name) : require('.' + name)
+}
 function clean(releaseAll){
 	result = {} 
 	detailId = null
 	conUrl && conUrl.empty()
 	if (releaseAll){
-		_set = {replace:{},append:{},spyon: require('./spyon.json')}
+		_set = {replace:{},append:{},spyon: loadConf( 'spyon')}
 	}
 	$('#detail').hide()
 	$('#editRule').hide()
