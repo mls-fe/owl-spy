@@ -2,7 +2,7 @@
   "name": "owleye",
   "main": "index.html",
   "window": {
-    "toolbar": true,
+    "toolbar": false,
     "resizable": true,
     "fullscreen": false,
 	"icon" : "img/app.png",
