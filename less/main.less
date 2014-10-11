@@ -29,19 +29,14 @@ html,body,#m1,#m2{height: 100%;}
 	animation:@name @duration @timingfunction @delay @count @direction;
 	-webkit-animation:@name @duration @timingfunction @delay @count @direction;
 }
-#m2 textarea{
-	width : 49%;
-	height: 100%; 
-	border: none;
-}
+
 #m2__pnl{
 	margin:1px auto;
-	height: 500px;
+	height: 90%;
 	overflow:hidden;
 	border:1px solid #000;
 }
-#m2__output {
-}
+
 #m2__pnl #m2__input {
 	border-left :1px solid #ccc; 
 }
@@ -89,7 +84,7 @@ html,body,#m1,#m2{height: 100%;}
 }
 .top_w{height: 82px;.Transition(height,0.5s);}
 .mid_w{height : 200px;min-height: 100px; border:1px solid #3e454d; margin: 0 10px;.border-r(2px);padding-left: 10px;.Transition(height,0.5s);}
-.bottom_w{height: 305px;margin: 0 10px;.Transition(height,0.5s);}
+.bottom_w{height: 305px;margin: 0 10px;.Transition(height,0.5s);position: relative;}
 #detail{.border-r(2px);margin-top: 5px;
 	.tab_w{}
 	.content_w{height: 268px;border: 1px solid #3e454d;padding: 5px;margin-bottom: -1px;overflow: auto;.Transition(height,0.5s);}
@@ -97,10 +92,14 @@ html,body,#m1,#m2{height: 100%;}
 		&.s{background:#3e454d!important;color: #fff; }
 		&:hover{background: #5e6771;color: #fff;}
 	}
-	.adjust{float: right;margin-right: 20px;width: 10px;height: 10px;border: 1px solid #5e6771;margin-top: 6px;cursor: n-resize;
+	.hidePanel,.adjust{float: right;margin-right: 10px;width: 10px;height: 10px;border: 1px solid #5e6771;margin-top: 6px;.border-r(50%);
+	}
+	.adjust{
+		cursor: n-resize;background: #3ac827;
 		&:active{border-color: #3e454d;}
 		&.extend{cursor: s-resize;}
 	}
+	.hidePanel{background: #ea060e;cursor: pointer;}
 }
 #dtlPnl{line-height: 16px;
 	h4{word-break:break-all;}
@@ -128,3 +127,17 @@ html,body,#m1,#m2{height: 100%;}
 	}
 }
 #editCon{width: 80%;height: 120px;}
+
+#spy{
+	textarea{border: none;}
+	input[type=button]{.Btn();}
+} 
+.m2__output_wrapper{position: fixed;width:100%;height: 186px;top: 0;left: 0;z-index: 10;background: #3e454d;border-bottom: 1px solid #3e454d;
+	.Animate(show_from_top,@duration:0.3s,@timingfunction:ease-out,@delay:0s,@count:1,@direction:normal);
+	@-webkit-keyframes show_from_top
+	{
+		0%{top: -188px;}
+		100%{top: 0;}
+	}
+}
+#m2__output {display: block;height: 100%;margin: auto;width: 90%;}

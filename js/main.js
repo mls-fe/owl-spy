@@ -112,6 +112,7 @@ function clean(releaseAll){
 	}
 	$('#detail').hide()
 	$('#editRule').hide()
+	$('#spy').hide()
 }
 
 function eachWorker(callback) {
@@ -197,9 +198,10 @@ function showDetail(act){
 	var detl = result[detailId]
 	if (!act || !detl) return
 	$('#editRule').hide()
+	$('#spy').hide()
 
-	$('#m2').hide()
-	$('#m1').show()
+	// $('#m2').hide()
+	// $('#m1').show()
 	//console.log(_set)
 	var sDetail = ''
 	switch (act){
@@ -240,13 +242,18 @@ function showDetail(act){
 
 			break
 		case 'spy':
+			$('#spy').show()
+			var $adjust = $('.adjust')
+			if( !$adjust.hasClass('extend')){
+				$adjust.trigger('click')
+			}
 			var url = detl.uri
 			//if (_set.spyon.indexOf(url) == -1) return
 			//upSpyList(url ,'on')
 
-			$('#m2__url').val(url)
-			$('#m1').hide()
-			$('#m2').show()
+			$('#m2__url').text(url)
+			// $('#m1').hide()
+			// $('#m2').show()
 			break
 		case 'edit':
 			var url = detl.uri
@@ -284,7 +291,7 @@ function upSpyList(url , opt){
 }
 
 function runRun(evt , cmd){
-	var url = $('#m2__url').val()
+	var url = $('#m2__url').text()
 	nmqs.pub('s_' + url , cmd  || editAreaLoader.getValue('m2__input') || $('#m2__input').val())
 	//nmqs.pub('s_http://m.meilishuo.com/sq' ,'alert(2) ;\n return document.body.innerHTML')
 }
@@ -332,10 +339,10 @@ function main(){
 		upSpyList(url)
 	})
 
-	$('#m2__showMain').click(function(){
+	/*$('#m2__showMain').click(function(){
 		$('#m1').show()
 		$('#m2').hide()
-	})
+	})*/
 	$('#m2__clean').click(function(){
 		$('#m2__output').val('')
 	})

@@ -38,7 +38,7 @@ $('.adjust').on('click', function(event) {
 	var midH = $('.mid_w').height()
 		,bottomH = $('.bottom_w').height()
 		,contentH = $('.content_w').height()
-	var c = 150
+	var c = 100
 	if(self.hasClass('extend')){
 		$('.mid_w').css('height', midH+c+'px')
 		$('.bottom_w').css('height', bottomH-c+'px')
@@ -50,4 +50,8 @@ $('.adjust').on('click', function(event) {
 		$('.content_w').css('height', contentH+c+'px')
 		self.addClass('extend')
 	}
+})
+
+$('.hidePanel').on('click', function(event) {
+	$('#detail').fadeOut(200)
 })

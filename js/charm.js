@@ -78,10 +78,10 @@
 		}else{
 			console.log = function(){
 				 var a = Array.prototype.slice.call(arguments,0)
-				 send('echoBk' ,'console log \n' + a.join('\n'))
+				 send('echoBk' ,'console log: \n' + a.join('\n'))
 			}
 		}
-		alert(recover ? 'console.log is recover' : 'Take over console.log')
+		alert(recover ? 'console.log已经还原' : 'console.log的输出结果将会显示在控制台')
 	}
 	global.OE_snapStyle = function(OE_id,winid ,newStyle){
 		var dom = $('[OE_id=' + OE_id + ']') 

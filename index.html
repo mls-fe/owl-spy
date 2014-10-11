@@ -6,21 +6,6 @@
 		<link href="./css/main.css" rel="stylesheet">
     </head>
 <body>
-	<div id=m2 style="display:none;">
-		<p>
-			<span id='m2__showMain'> <- 返回</span>
-			刷新后生效: <input  id="m2__url"/> 
-			<input type=button id='m2__run' value="run" />
-			<input type=button id='m2__clean' value="clean" />
-			<label><input checked type=checkbox id='m2__console2Send' value=1 /> console2Send </label>
-			<label><input type=button id='m2__OE_snap' value=读取文档 /></label>
-		</p>
-		<div id="m2__pnl">
-			<textarea id="m2__output" placeholder="output result"></textarea>
-			<textarea style="height:100%;width:50%;" id="m2__input" placeholder="input command                           console2Send() //take over console.log"></textarea>
-		</div>
-
-	</div>
 	<div id="m1">
 		<div id="m1__spy">
 			<p>查&nbsp;&nbsp;看</p>
@@ -53,6 +38,7 @@
 				<span class="b" act="beauty">Beauty</span>	
 				<span class="b" act="edit">Edit</span>	
 				<span class="b spybtn" act="spy">Spy</span>	
+				<span class="hidePanel"></span>
 				<span class="adjust"></span>
 				<div class="clear_f"></div>
 			</div>
@@ -72,6 +58,23 @@
 						</p>
 					</form>
 				</div>
+				<div id="spy" style="display: none;">
+					<p>
+						<!-- <span id='m2__showMain'> <- 返回</span> -->
+						刷新页面后生效: <span  id="m2__url"></span> <br>
+						<input type=button id='m2__run' value="运行" />
+						<input type=button id='m2__clean' value="清除" />
+						<label><input type=button id='m2__OE_snap' value=读取文档 /></label>
+						<label><input checked type=checkbox id='m2__console2Send' value=1 /> 接收控制台输出 </label>
+						
+					</p>
+					<div id="m2__pnl">
+						<textarea style="height:80%;width:100%;min-height:200px" id="m2__input" placeholder="input command                           console2Send() //take over console.log"></textarea>
+					</div>
+					<div class="m2__output_wrapper">
+						<textarea id="m2__output" placeholder="输出结果"></textarea>
+					</div>
+				</div>
 			</div>
 		</div>
 	<div>
@@ -86,7 +89,7 @@
 editAreaLoader.init({
 		id : "m2__input"		// textarea id
 		,font_size : 10
-		,toolbar : "search,  fullscreen, |, undo,redo"
+		,toolbar : "search, |, undo,redo"
 		,syntax: "js"			// syntax to be uses for highgliting
 		,start_highlight: true		// to display with highlight mode on start-up
 });
