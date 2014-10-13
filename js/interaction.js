@@ -54,4 +54,8 @@ $('.adjust').on('click', function(event) {
 
 $('.hidePanel').on('click', function(event) {
 	$('#detail').fadeOut(200)
+	var $adjust = $('.adjust')
+	if( $adjust.hasClass('extend')){
+		$adjust.trigger('click')
+	}
 })
