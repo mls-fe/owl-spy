@@ -85,7 +85,7 @@
 	}
 	global.OE_snapStyle = function(OE_id,winid ,newStyle){
 		var dom = $('[OE_id=' + OE_id + ']') 
-		alert('读取样式')
+		// alert('读取样式')
 		if (dom.length < 1) return alert('节点没找到')
 		if (newStyle){
 			for (var name in newStyle){
@@ -113,7 +113,7 @@
 			mark(all[i])
 		}
 		send('snapBk' , document.documentElement.innerHTML)
-		alert('发送文档')
+		// alert('发送文档')
 	}
 	OE_console2Send()
 
