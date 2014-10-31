@@ -35,25 +35,25 @@ $('#edit').on('click','.clear_all', function(event) {
 
 $('.adjust').on('click', function(event) {
 	var self = $(this)
-	var midH = $('.mid_w').height()
-		,bottomH = $('.bottom_w').height()
-		,contentH = $('.content_w').height()
-	var c = 100
+	// var midH = $('.mid_w').height()
+	// 	,bottomH = $('.bottom_w').height()
+	// 	,contentH = $('.content_w').height()
+	// var c = 100
 	if(self.hasClass('extend')){
-		$('.mid_w').css('height', midH+c+'px')
-		$('.bottom_w').css('height', bottomH-c+'px')
-		$('.content_w').css('height', contentH-c+'px')
+		// $('.mid_w').css('height', midH+c+'px')
+		$('.bottom_w').css('top', '282px')
+		// $('.content_w').css('height', contentH-c+'px')
 		self.removeClass('extend')
 	} else {
-		$('.mid_w').css('height', midH-c+'px')
-		$('.bottom_w').css('height', bottomH+c+'px')
-		$('.content_w').css('height', contentH+c+'px')
+		// $('.mid_w').css('height', midH-c+'px')
+		$('.bottom_w').css('top', '82px')
+		// $('.content_w').css('height', contentH+c+'px')
 		self.addClass('extend')
 	}
 })
 
 $('.hidePanel').on('click', function(event) {
-	$('#detail').fadeOut(200)
+	$('#detail').hide()
 	var $adjust = $('.adjust')
 	if( $adjust.hasClass('extend')){
 		$adjust.trigger('click')
