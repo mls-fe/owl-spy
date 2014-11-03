@@ -59,3 +59,15 @@ $('.hidePanel').on('click', function(event) {
 		$adjust.trigger('click')
 	}
 })
+
+$('#find_input').on('input change', function(event) {
+	var val = $(this).val().trim()
+	if($(this).data('odata')==val ) return
+	$(this).data('odata',val)
+	var reg = new RegExp('('+val+')', "gi");
+	$('#url li').each(function(index,item){
+		var ourl = $(item).attr('ourl')
+			,$wrapper = $(item).children('.url_span')
+		$wrapper.html(ourl.replace(reg,'<span class="highlight">$1</span>'))
+	})
+})

@@ -48,7 +48,7 @@ workerCmd.printUrl = function(val){
 	if (_set.spyon.indexOf(val.url) !=-1) mark += getIcon('spy')
 
 	//mark += '<span class=eys url="' + val.url + '">(o)</span>'
-	conUrl.append('<li id="' + val.id + '" >' + val.url + ' ' +  mark + '</li>')
+	conUrl.append('<li id="' + val.id + '" ourl='+val.url+' >' +'<span class="url_span">'+ val.url+'</span>' + ' ' +  mark + '</li>')
 		.scrollTop(++_tcount *  1000 )
 }
 workerCmd.reqComplete = workerCmd.reqStart =  function(val){
