@@ -60,20 +60,22 @@
 					</form>
 				</div>
 				<div id="spy" style="display: none;">
-					<p>
-						<!-- <span id='m2__showMain'> <- 返回</span> -->
-						刷新页面后生效: <span  id="m2__url"></span> <br>
-						<input type=button id='m2__run' value="运行" />
-						<input type=button id='m2__clean' value="清除" />
-						<label><input type=button id='m2__OE_snap' value=读取文档 /></label>
-						<label><input checked type=checkbox id='m2__console2Send' value=1 /> 接收控制台输出 </label>
-						
-					</p>
+					<div class="m2_top">
+						<div class="m2__output_wrapper">
+							<textarea id="m2__output" placeholder="输出结果"></textarea>
+						</div>
+						<p>
+							<!-- <span id='m2__showMain'> <- 返回</span> -->
+							刷新页面后生效: <span  id="m2__url"></span> <br>
+							<input type=button id='m2__run' value="运行" />
+							<input type=button id='m2__clean' value="清除" />
+							<label><input type=button id='m2__OE_snap' value=读取文档 /></label>
+							<label><input checked type=checkbox id='m2__console2Send' value=1 /> 接收控制台输出 </label>
+							
+						</p>
+					</div>
 					<div id="m2__pnl">
 						<textarea style="height:80%;width:100%;min-height:200px" id="m2__input" placeholder="input command                           console2Send() //take over console.log"></textarea>
-					</div>
-					<div class="m2__output_wrapper">
-						<textarea id="m2__output" placeholder="输出结果"></textarea>
 					</div>
 				</div>
 			</div>
