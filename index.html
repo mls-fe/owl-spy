@@ -1,109 +1,114 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <title>OWL SPY</title>
-		<link href="./css/main.css" rel="stylesheet">
-    </head>
+<head>
+    <meta charset="utf-8">
+    <title>OWL SPY</title>
+    <link href="./css/main.css" rel="stylesheet">
+    <script>
+        //http://electron.atom.io/docs/v0.37.6/faq/electron-faq/#i-can-not-use-jqueryrequirejsmeteorangularjs-in-electron
+        window.nodeRequire = require;
+        delete window.require;
+        delete window.exports;
+        delete window.module;
+    </script>
+</head>
 <body>
-	<div id="m1">
-		<div id="m1__spy">
-			<p>查&nbsp;&nbsp;看</p>
-			<textarea id="m1__spylist"></textarea>	
-		</div>
-		<div id="m1__operat" class="top_w">
-			<p class="proxy_info_wrapper">
-				IP:<span id="localip" >127.0.0.1</span>  
-				Port:<input id="port" type="number" min="80" max="99999"  value="4000"/>  
-				Url Filter:<input id="url_filter" type="text" /><input title="清空Url Filter" type="button" id="clear_btn" value="清空">
-			</p>
-			<div class="proxy_btn_wrapper">
-				<input type="button" id="start" value="启 动" />
-				<input type="button" id="stop" value="停 止" class="disabled" />
-				<input type="button" id="clean" value="清 屏" />
-				<input type="button" id="reset" value="重 置" />
-				<input type="text" id="find_input" placeholder="查找" >
-				<span id="status"></span>
-			</div>
-		</div>
-		<div class="mid_w" >
-			<ul id="url">
-			</ul>
-		</div>
-		<div id="log"></div>
-		<div id="detail" class="bottom_w">
-			<div class="tab_w">
-				<span class="b s" act="headers">Headers</span>	
-				<span class="b" act="params">Params</span>	
-				<span class="b" act="response">Response</span>	
-				<span class="b" act="beauty">Beauty</span>	
-				<span class="b" act="edit">Edit</span>	
-				<span class="b spybtn" act="spy">Spy</span>	
-				<span class="hidePanel"></span>
-				<span class="adjust"></span>
-				<div class="clear_f"></div>
-			</div>
-			<div class="content_w">
-				<div id="dtlPnl"></div>
-				<div id="edit">
-					<form id="editRule" style="display:none;">
-						<p class="radio_wrapper">
-							<label> <input type=radio name="edit" value="replace" /> 替换 </label>
-							<label> <input type=radio name="edit" value="append" checked /> 追加 </label>
-						</p>
-						<textarea id="editCon" name="editCon"></textarea>
-						<p>
-							<input type=submit value="保存" />
-							<input type=button value="清空" class="clear_all" />
-							<span class="edit_tip"></span>
-						</p>
-					</form>
-				</div>
-				<div id="spy" style="display: none;">
-					<div class="m2_top">
-						<div class="m2__output_wrapper">
-							<textarea id="m2__output" placeholder="输出结果"></textarea>
-						</div>
-						<p>
-							<!-- <span id='m2__showMain'> <- 返回</span> -->
-							刷新页面后生效: <span  id="m2__url"></span> <br>
-							<input type=button id='m2__run' value="运行" />
-							<input type=button id='m2__clean' value="清除" />
-							<label><input type=button id='m2__OE_snap' value=读取文档 /></label>
-							<label><input checked type=checkbox id='m2__console2Send' value=1 /> 接收控制台输出 </label>
-							
-						</p>
-					</div>
-					<div id="m2__pnl">
-						<textarea style="height:80%;width:100%;min-height:200px" id="m2__input" placeholder="input command                           console2Send() //take over console.log"></textarea>
-					</div>
-				</div>
-			</div>
-		</div>
-	<div>
+<div id="m1">
+    <div id="m1__spy">
+        <p>查&nbsp;&nbsp;看</p>
+        <textarea id="m1__spylist"></textarea>
+    </div>
+    <div id="m1__operat" class="top_w">
+        <p class="proxy_info_wrapper">
+            IP:<span id="localip">127.0.0.1</span>
+            Port:<input id="port" type="number" min="80" max="99999" value="4000"/>
+            Url
+            Filter:<input id="url_filter" type="text"/><input title="清空Url Filter" type="button" id="clear_btn" value="清空">
+        </p>
+        <div class="proxy_btn_wrapper">
+            <input type="button" id="start" value="启 动"/>
+            <input type="button" id="stop" value="停 止" class="disabled"/>
+            <input type="button" id="clean" value="清 屏"/>
+            <input type="button" id="reset" value="重 置"/>
+            <input type="text" id="find_input" placeholder="查找">
+            <span id="status"></span>
+        </div>
+    </div>
+    <div class="mid_w">
+        <ul id="url">
+        </ul>
+    </div>
+    <div id="log"></div>
+    <div id="detail" class="bottom_w">
+        <div class="tab_w">
+            <span class="b s" act="headers">Headers</span>
+            <span class="b" act="params">Params</span>
+            <span class="b" act="response">Response</span>
+            <span class="b" act="beauty">Beauty</span>
+            <span class="b" act="edit">Edit</span>
+            <span class="b spybtn" act="spy">Spy</span>
+            <span class="hidePanel"></span>
+            <span class="adjust"></span>
+            <div class="clear_f"></div>
+        </div>
+        <div class="content_w">
+            <div id="dtlPnl"></div>
+            <div id="edit">
+                <form id="editRule" style="display:none;">
+                    <p class="radio_wrapper">
+                        <label> <input type=radio name="edit" value="replace"/>
+                            替换 </label>
+                        <label>
+                            <input type=radio name="edit" value="append" checked/>
+                            追加 </label>
+                    </p>
+                    <textarea id="editCon" name="editCon"></textarea>
+                    <p>
+                        <input type=submit value="保存"/>
+                        <input type=button value="清空" class="clear_all"/>
+                        <span class="edit_tip"></span>
+                    </p>
+                </form>
+            </div>
+            <div id="spy" style="display: none;">
+                <div class="m2_top">
+                    <div class="m2__output_wrapper">
+                        <textarea id="m2__output" placeholder="输出结果"></textarea>
+                    </div>
+                    <p>
+                        <!-- <span id='m2__showMain'> <- 返回</span> -->
+                        刷新页面后生效: <span id="m2__url"></span> <br>
+                        <input type=button id='m2__run' value="运行"/>
+                        <input type=button id='m2__clean' value="清除"/>
+                        <label><input type=button id='m2__OE_snap' value=读取文档/></label>
+                        <label><input checked type=checkbox id='m2__console2Send' value=1/>
+                            接收控制台输出 </label>
+
+                    </p>
+                </div>
+                <div id="m2__pnl">
+                    <textarea style="height:80%;width:100%;min-height:200px" id="m2__input" placeholder="input command                           console2Send() //take over console.log"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
 </body>
 <script src=js/jquery-2.1.1.js></script>
+<script>
+    window.require = nodeRequire
+</script>
 <script src=js/main.js></script>
-<script src=js/contextmenu.js></script>
 <script src=js/interaction.js></script>
 <script language="javascript" type="text/javascript" src="edit_area/edit_area_full.js"></script>
 <script language="javascript" type="text/javascript">
-//http://www.cdolivet.com/editarea/editarea/docs/configuration.html
-editAreaLoader.init({
-		id : "m2__input"		// textarea id
-		,font_size : 10
-		,toolbar : "search, |, undo,redo"
-		,syntax: "js"			// syntax to be uses for highgliting
-		,start_highlight: true		// to display with highlight mode on start-up
-});
-
-(function() {
-	var nw  = require('nw.gui');
-	var win = nw.Window.get();
-	var nativeMenuBar = new nw.Menu({type: 'menubar'});
-	nativeMenuBar.createMacBuiltin("owl-spy");
-	win.menu = nativeMenuBar;
-}())
-
+    //http://www.cdolivet.com/editarea/editarea/docs/configuration.html
+    editAreaLoader.init( {
+        id                : "m2__input"		// textarea id
+        , font_size       : 10
+        , toolbar         : "search, |, undo,redo"
+        , syntax          : "js"			// syntax to be uses for highgliting
+        , start_highlight : true		// to display with highlight mode on start-up
+    } )
 </script>
 </html>

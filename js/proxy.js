@@ -6,11 +6,11 @@ var http = require('http')
 	,querystring = require('querystring')
 	,zlib = require('zlib')
 
-var caster = require('./caster.js')
+var caster = require(__dirname + '/caster.js')
 
 util.inherits(onRes , Transform)
 
-var id = 0 
+var id = 0
 function getUid(){
 	return (+new Date).toString(36)  + '_' + ++id
 }
@@ -46,14 +46,14 @@ onRes.prototype._flush  = function(done){
 			oSelf.push((err || buffer).toString())
 
 			var myUrl = oSelf.req.url
-			if (_set.append && _set.append[myUrl]) oSelf.push(_set.append[myUrl])	
-			if (_set.spyon && _set.spyon.indexOf(myUrl) > -1) oSelf.push(config.spycript)	
+			if (_set.append && _set.append[myUrl]) oSelf.push(_set.append[myUrl])
+			if (_set.spyon && _set.spyon.indexOf(myUrl) > -1) oSelf.push(config.spycript)
 			done()
 		}
 
 		if (this.req.gzip)
 			zlib[this.req.gzip](buf , upBody)
-		else 
+		else
 			upBody(null , buf)
 		buf = null
 	}else {
@@ -64,11 +64,11 @@ onRes.prototype._flush  = function(done){
 function detectRes(req , headers){
 	var contentType = headers['content-type']
 	if (contentType) {
-		contentType = contentType.split(';')[0]	
+		contentType = contentType.split(';')[0]
 		if (['application/javascript'].indexOf(contentType) != -1 ||
 			['text'].indexOf(contentType.split('/')[0]) != -1) req.shouldShowBody = true
 	}
-	if ('gzip' == headers['content-encoding'] ) req.gzip = 'unzip' 
+	if ('gzip' == headers['content-encoding'] ) req.gzip = 'unzip'
 	else if ('deflate' == headers['content-encoding']) req.gzip = 'Inflate'
 	if (req.shouldShowBody) outPut('reqStart' , {'id': req.id , 'res_type': contentType})
 }
@@ -76,7 +76,7 @@ function detectRes(req , headers){
 function getProxy(req , res){
     //console.log(req.headers)
 	delete req.headers['accept-encoding']
-	var hostPart = req.headers.host.split(':') 
+	var hostPart = req.headers.host.split(':')
 
 	if ('127.0.0.1' == hostPart[0]) hostPart[0] = req.connection.remoteAddress
 
@@ -90,7 +90,7 @@ function getProxy(req , res){
     }
 
 	~function(){
-		var data = [] 
+		var data = []
 			,len = 0
 		req.addListener('data' , function(chunk){
 			data.push(chunk)
@@ -106,10 +106,10 @@ function getProxy(req , res){
         res.writeHead(resp.statusCode , resp.headers)
 		if (req.toShow) {
 			detectRes(req , resp.headers)
-			outPut('reqStart' , {'id': req.id 
+			outPut('reqStart' , {'id': req.id
 								,'uri': req.url
-								,'host' : req.headers.host 
-								, 'status':   resp.statusCode 
+								,'host' : req.headers.host
+								, 'status':   resp.statusCode
 								, 'res_headers' : resp.headers
 								,'req_headers' : req.headers})
 			resp.pipe(new onRes(req )).pipe(res)
@@ -157,7 +157,7 @@ function outPut(cmd , val){
 	}
 }
 
-var nmq = require('./nmq.js')
+var nmq = require(__dirname + '/nmq.js')
 	,nmqc //must be alone
 
 function start(){

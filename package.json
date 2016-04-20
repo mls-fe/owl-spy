@@ -1,15 +1,20 @@
 {
-  "name": "owleye",
-  "main": "index.html",
+  "name": "owl-spy",
+  "main": "index.js",
+  "version": "1.0.0",
   "window": {
-    "toolbar":false,
+    "toolbar": false,
     "resizable": true,
     "fullscreen": false,
-	"icon" : "img/app.png",
+    "icon": "img/app.png",
     "width": 800,
     "height": 600
   },
   "dependencies": {
     "htmlparser2": "~3.7.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mls-fe/owl-spy.git"
   }
 }
