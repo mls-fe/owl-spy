@@ -3,7 +3,6 @@ var http = require('http')
     ,path = require('path')
 	,cluster = require('cluster')
 	,querystring = require('querystring')
-	,gui = require('nw.gui')
 
 var exePath = (function(){
 	var epth = path.dirname( process.execPath )
@@ -12,11 +11,11 @@ var exePath = (function(){
 	}
 	return './'
 })()
-var config = loadConf('config') 
+var config = loadConf('config')
 	,workerCmd = {}
 	,result = {}
 	,detailId
-	,_set 
+	,_set
 
 
 
@@ -58,7 +57,7 @@ workerCmd.reqComplete = workerCmd.reqStart =  function(val){
 
 var sepLine = new Array(30).join('-')
 workerCmd.echoBk = function(val){
-	$('#m2__output')[0].value += val + '\n<' + sepLine + '>\n' 
+	$('#m2__output')[0].value += val + '\n<' + sepLine + '>\n'
 }
 
 var cssWins = {}
@@ -104,7 +103,7 @@ function loadConf(name){
 	return fs.existsSync(exePath + name) ? require(exePath + name) : require('.' + name)
 }
 function clean(releaseAll){
-	result = {} 
+	result = {}
 	detailId = null
 	conUrl && conUrl.empty()
 	if (releaseAll){
@@ -223,7 +222,7 @@ function showDetail(act){
 			sDetail += hash2List(parseCookie(detl.req_headers.cookie)) + '</table>'
 			break
 		case 'response':
-			sDetail = echoHTML(detl.res_body) || '<b>' +  detl.res_type + '</b>' 
+			sDetail = echoHTML(detl.res_body) || '<b>' +  detl.res_type + '</b>'
 			break
 		case 'beauty':
 			if (detl.res_body) {
@@ -231,14 +230,14 @@ function showDetail(act){
 					if (detl.res_type.indexOf('javascript') > -1) {
 						sDetail = require('./js/jsBeautify.js').beautify(detl.res_body)
 					}else {
-						sDetail =	JSON.stringify(JSON.parse(detl.res_body), null , 4)  
+						sDetail =	JSON.stringify(JSON.parse(detl.res_body), null , 4)
 					}
 					sDetail = '<pre>' + echoHTML(sDetail) + '</pre>'
 				} catch (err){
 					sDetail = 'Parse err : ' + err
 				}
 			}
-			sDetail = sDetail || '<b>' +  detl.res_type + '</b>' 
+			sDetail = sDetail || '<b>' +  detl.res_type + '</b>'
 
 			break
 		case 'spy':
@@ -259,7 +258,7 @@ function showDetail(act){
 			var url = detl.uri
 				,type
 				,con
-			con =_set.replace[url] || _set.append[url] || '' 
+			con =_set.replace[url] || _set.append[url] || ''
 			if (con) type = (url in _set.replace) ? 'replace' : 'append'
 			///console.log(url , type , con)
 			type && $('#editRule input[value='+type+']').prop('checked' , true)
@@ -276,13 +275,13 @@ function showDetail(act){
 function upSpyList(url , opt){
 	if (!url) return
 	opt = opt || 'switch'
-	if (['on' ,'switch'].indexOf(opt) > -1 &&_set.spyon.indexOf(url) == -1){ 
-		_set.spyon.push(url) 
-	}else if (['off' ,'switch'].indexOf(opt) > -1 &&_set.spyon.indexOf(url) > -1){ 
+	if (['on' ,'switch'].indexOf(opt) > -1 &&_set.spyon.indexOf(url) == -1){
+		_set.spyon.push(url)
+	}else if (['off' ,'switch'].indexOf(opt) > -1 &&_set.spyon.indexOf(url) > -1){
 		for (var i = _set.spyon.length - 1;i >=0 ;i--){
 			if (_set.spyon[i] == url){
 				_set.spyon.splice(i , 1)
-				break	
+				break
 			}
 		}
 	}
@@ -303,7 +302,7 @@ function main(){
 	nmqs = nmq.startServer({'port' : qPort} )
 	//var nmqs = nmq.startClient({'port' : qPort} )
 
-	var spycript = fs.readFileSync('./js/charm.js')
+	var spycript = fs.readFileSync(__dirname + '/js/charm.js')
 	//spycript = '<script>'+ spycript + '</script>'
 	//_set.append['http://m.meilishuo.com/sq'] = spycript
 	config.spycript ='<script>'+ spycript + '</script>'
@@ -313,7 +312,7 @@ function main(){
 	$('#clean').click(clean.bind(null,false))
 	$('#reset').click(clean.bind(null, true))
 	$('#url').on('click' ,'li' ,function(){
-		var id =  this.getAttribute('id') 
+		var id =  this.getAttribute('id')
 		detailId = id
 
 		var detl = result[detailId]
@@ -347,16 +346,16 @@ function main(){
 		$('#m2__output').val('')
 	})
 	$('#m2__console2Send').change(function(){
-		runRun(null , 'OE_console2Send(' + !this.checked + ')' )	
+		runRun(null , 'OE_console2Send(' + !this.checked + ')' )
 	})
 	$('#m2__OE_snap').click(function(){
-		runRun(null , 'OE_snap()' )	
+		runRun(null , 'OE_snap()' )
 	})
 	$('#m2__run').click(runRun)
 	$('#m2__input').change(runRun)
 
 	$('#detail .b').click(function(){
-		if (!detailId || ! result[detailId]) return 
+		if (!detailId || ! result[detailId]) return
 		showDetail( this.getAttribute('act') )
 	})
 	$('#url_filter').on('input',function(){
@@ -364,7 +363,7 @@ function main(){
 		upConfig()
 	})
 	$('#editRule').submit(function(){
-		if (!detailId || ! result[detailId]) return 
+		if (!detailId || ! result[detailId]) return
 		var url = result[detailId].uri
 		var conf = querystring.parse($(this).serialize())
 		conf.editCon = conf.editCon.trim()
@@ -375,7 +374,7 @@ function main(){
 		upSetting()
 		$('.edit_tip').text('保存成功').removeClass('ani')
 		setTimeout(function(){$('.edit_tip').addClass('ani')}, 10)
-		// alert('保存成功')	
+		// alert('保存成功')
 
 		return false
 	})

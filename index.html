@@ -4,6 +4,13 @@
     <meta charset="utf-8">
     <title>OWL SPY</title>
     <link href="./css/main.css" rel="stylesheet">
+    <script>
+        //http://electron.atom.io/docs/v0.37.6/faq/electron-faq/#i-can-not-use-jqueryrequirejsmeteorangularjs-in-electron
+        window.nodeRequire = require;
+        delete window.require;
+        delete window.exports;
+        delete window.module;
+    </script>
 </head>
 <body>
 <div id="m1">
@@ -88,8 +95,10 @@
     <div>
 </body>
 <script src=js/jquery-2.1.1.js></script>
+<script>
+    window.require = nodeRequire
+</script>
 <script src=js/main.js></script>
-<script src=js/contextmenu.js></script>
 <script src=js/interaction.js></script>
 <script language="javascript" type="text/javascript" src="edit_area/edit_area_full.js"></script>
 <script language="javascript" type="text/javascript">
