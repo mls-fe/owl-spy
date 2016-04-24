@@ -1,0 +1,44 @@
+/**
+    buttons
+*/
+button {
+    width         : 60px;
+    margin-right  : 10px;
+    padding       : 5px;
+    border        : none;
+    border-radius : 2px;
+    background    : #5e6771;
+    color         : #fff;
+    cursor        : pointer;
+}
+
+button:active {
+    background-color : #3e454d;
+}
+
+button.prepare {
+    background-color : #00aeef;
+}
+
+button.disabled {
+    background-color : #ccc;
+}
+
+button.danger {
+    background-color : #ff7d7e;
+}
+
+/**
+    Header
+*/
+.toolbar {
+    color : #fff;
+}
+
+.info, .operate {
+    padding : 10px 20px;
+}
+
+.info {
+    background-color : #3e454d;
+}
