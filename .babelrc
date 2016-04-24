@@ -1,0 +1,16 @@
+{
+  "presets": [
+    "stage-0",
+    "es2015",
+    "react"
+  ],
+  "plugins": [
+    [
+      "transform-async-to-module-method",
+      {
+        "module": "bluebird",
+        "method": "coroutine"
+      }
+    ]
+  ]
+}
