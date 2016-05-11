@@ -1,9 +1,4 @@
 {
-  "presets": [
-    "stage-0",
-    "es2015",
-    "react"
-  ],
   "plugins": [
     [
       "transform-async-to-module-method",
@@ -11,6 +6,11 @@
         "module": "bluebird",
         "method": "coroutine"
       }
-    ]
+    ],
+    "transform-object-assign",
+    "transform-es2015-modules-commonjs",
+    "transform-react-display-name",
+    "transform-react-jsx",
+    "syntax-jsx"
   ]
 }
